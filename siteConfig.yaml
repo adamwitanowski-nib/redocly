@@ -9,11 +9,13 @@ linkChecker:
   options:
     CheckExternal: false
 logo:
-  image: ./images/logo.png
+  image: ./images/favicon.svg
   altText: Redocly Training
 toc:
   enable: true
 oasDefinitions:
+  products: ./openapi/products.yaml
+  quotes: ./openapi/quotes.yaml
   petstore: ./openapi/petstore.yaml
   # add links to definitions in our API registry by using a fully qualified URL.
 stylesheets:
@@ -27,7 +29,7 @@ stylesheets:
 #  - ./static/intercom.js
 nav:
 
-  - label: Training exercises
+  - label: API Reference Docs
     page: developer-portal/index.md
 
   - label: External docs
@@ -37,7 +39,7 @@ nav:
   - search: true
 
 footer:
-  copyrightText: Copyright © Redocly 2019-2021. All right reserved.
+  copyrightText: Copyright © nib Travel 2022. All right reserved.
   columns:
     - group: Legal
       items:

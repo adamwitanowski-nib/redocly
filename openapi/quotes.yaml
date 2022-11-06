@@ -1,0 +1,1196 @@
+openapi: 3.0.1
+info:
+  title: Quotes API
+  description: Quotes API
+  version: v1
+paths:
+  /v1/{brandCode}/quote/{quoteId}/communication:
+    post:
+      tags:
+        - Communication
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: quoteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunicationRequestInput'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CommunicationRequestInput'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CommunicationRequestInput'
+      responses:
+        '200':
+          description: Success
+  /v1/{brandCode}/purchase:
+    post:
+      tags:
+        - Purchase
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Purchase'
+  /v1/{brandCode}/quote:
+    post:
+      tags:
+        - Quote
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /v1/{brandCode}/quotewithoptions:
+    post:
+      tags:
+        - Quote
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /v1/{brandCode}/quote/{quoteId}:
+    get:
+      tags:
+        - Quote
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: quoteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+components:
+  schemas:
+    AddressInput:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          nullable: true
+        addressLine2:
+          type: string
+          nullable: true
+        addressLine3:
+          type: string
+          nullable: true
+        addressLine4:
+          type: string
+          nullable: true
+        provinceCode:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        postalCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    AdventureActivitiesOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        adventureActivityIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    AgeInput:
+      type: object
+      properties:
+        isDependent:
+          type: boolean
+        age:
+          type: integer
+          format: int32
+        ageRangeId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    Audit:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: string
+        updatedAt:
+          type: string
+          format: string
+        createdByUsername:
+          type: string
+          nullable: true
+        updatedByUsername:
+          type: string
+          nullable: true
+        createdByUserId:
+          type: integer
+          format: int64
+        updatedByUserId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    BasePriceEvaluationInput:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        pricingModelTypeId:
+          type: integer
+          format: int64
+        isMultipleOfSinglePricing:
+          type: boolean
+        ages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgeInput'
+          nullable: true
+        potentialDestinationRegionIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+        destinationRegionId:
+          type: integer
+          format: int64
+          nullable: true
+        travelDurationId:
+          type: integer
+          format: int64
+          nullable: true
+        travellerTypeId:
+          type: integer
+          format: int64
+          nullable: true
+        isPricingTaxExclusive:
+          type: boolean
+        taxModelId:
+          type: integer
+          format: int64
+          nullable: true
+        provinceId:
+          type: integer
+          format: int64
+          nullable: true
+      additionalProperties: false
+    BasePriceResult:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        netListPrice:
+          type: number
+          format: double
+        saleListPrice:
+          type: number
+          format: double
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentResult'
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        priceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasePriceResultDetail'
+          nullable: true
+      additionalProperties: false
+    BasePriceResultDetail:
+      type: object
+      properties:
+        age:
+          type: integer
+          format: int32
+        ageRangeId:
+          type: integer
+          format: int64
+        netListPrice:
+          type: number
+          format: double
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+      additionalProperties: false
+    BasePriceSummary:
+      type: object
+      properties:
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentSummary'
+          nullable: true
+      additionalProperties: false
+    BasicOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        isOptedIn:
+          type: boolean
+        optedInTotalValue:
+          type: number
+          format: double
+          nullable: true
+        optedInOffsetValue:
+          type: number
+          format: double
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    BrowserInfo:
+      type: object
+      properties:
+        color:
+          type: string
+          nullable: true
+        height:
+          type: string
+          nullable: true
+        width:
+          type: string
+          nullable: true
+        tzOffset:
+          type: string
+          nullable: true
+        javaEnabled:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CalendarSystem:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        minYear:
+          type: integer
+          format: int32
+          readOnly: true
+        maxYear:
+          type: integer
+          format: int32
+          readOnly: true
+        eras:
+          type: array
+          items:
+            $ref: '#/components/schemas/Era'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CancellationOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        cancellationCoverLimit:
+          type: number
+          format: double
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    CardTokenInput:
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: true
+        source:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    ClientInfo:
+      type: object
+      properties:
+        ipAddress:
+          type: string
+          nullable: true
+        userAgent:
+          type: string
+          nullable: true
+        referer:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CommunicationRequestInput:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    CreditCardInput:
+      type: object
+      properties:
+        nameOnCard:
+          type: string
+          nullable: true
+        cardNumber:
+          type: string
+          nullable: true
+        expiryMonth:
+          type: integer
+          format: int32
+        expiryYear:
+          type: integer
+          format: int32
+        verificationNumber:
+          type: string
+          nullable: true
+        tenderTypeCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    Era:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    ExternalIdentifiers:
+      type: object
+      properties:
+        externalMembershipProviderId:
+          type: integer
+          format: int64
+          nullable: true
+        externalMembershipNumber:
+          type: string
+          nullable: true
+        bookingReference:
+          type: string
+          nullable: true
+        marketingSource:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FootprintsDonationInput:
+      type: object
+      properties:
+        donationAmount:
+          type: number
+          format: double
+          nullable: true
+        donationProjectId:
+          type: integer
+          format: int64
+          nullable: true
+        donationAccountCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    IsoDayOfWeek:
+      enum:
+        - None
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+      type: string
+    LocalDate:
+      type: object
+      properties:
+        calendar:
+          $ref: '#/components/schemas/CalendarSystem'
+        year:
+          type: integer
+          format: int32
+        month:
+          type: integer
+          format: int32
+        day:
+          type: integer
+          format: int32
+        dayOfWeek:
+          $ref: '#/components/schemas/IsoDayOfWeek'
+        yearOfEra:
+          type: integer
+          format: int32
+          readOnly: true
+        era:
+          $ref: '#/components/schemas/Era'
+        dayOfYear:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    Notification:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        tokens:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        property:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OptionItemPriceSummary:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+      additionalProperties: false
+    OptionPriceResult:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionTypeCode:
+          type: string
+          nullable: true
+        policyHolderGuid:
+          type: string
+          format: uuid
+          nullable: true
+        netListPrice:
+          type: number
+          format: double
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        optionCoverageAmount:
+          type: number
+          format: double
+          nullable: true
+        minNetListPrice:
+          type: number
+          format: double
+          nullable: true
+        maxNetListPrice:
+          type: number
+          format: double
+          nullable: true
+        isOptionExplicit:
+          type: boolean
+        isDefault:
+          type: boolean
+        maxItemValuePerPolicy:
+          type: number
+          format: double
+          nullable: true
+        minSaleListPrice:
+          type: number
+          format: double
+          nullable: true
+        maxSaleListPrice:
+          type: number
+          format: double
+          nullable: true
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentResult'
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        priceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceResultDetail'
+          nullable: true
+      additionalProperties: false
+    OptionPriceResultDetail:
+      type: object
+      properties:
+        optionSubTypeCode:
+          type: string
+          nullable: true
+        itemGuid:
+          type: string
+          format: uuid
+        netListPrice:
+          type: number
+          format: double
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        saleListPricePercentage:
+          type: number
+          format: double
+          nullable: true
+        minItemValue:
+          type: number
+          format: double
+          nullable: true
+        maxItemValuePerUnit:
+          type: number
+          format: double
+          nullable: true
+        specifiedItemTypeId:
+          type: integer
+          format: int64
+        specifiedItemTypeCode:
+          type: string
+          nullable: true
+        specifiedItemTypeName:
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+      additionalProperties: false
+    OptionPriceSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        policyHolderGuid:
+          type: string
+          format: uuid
+          nullable: true
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionItemPriceSummary'
+          nullable: true
+        displayOrder:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PartnerSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        statusCode:
+          type: string
+          nullable: true
+        isOnAccountPurchaseEnabled:
+          type: boolean
+      additionalProperties: false
+    PolicyHolderInput:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        isDependent:
+          type: boolean
+        age:
+          type: integer
+          format: int32
+        dateOfBirth:
+          $ref: '#/components/schemas/LocalDate'
+        isPrimary:
+          type: boolean
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        emailAddress:
+          type: string
+          nullable: true
+        travelClearOption:
+          $ref: '#/components/schemas/TravelClearOptionInput'
+        residentIdentifier:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    Purchase:
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/Quote'
+        cardToken:
+          $ref: '#/components/schemas/CardTokenInput'
+        creditCard:
+          $ref: '#/components/schemas/CreditCardInput'
+        threeDSRequestInfo:
+          $ref: '#/components/schemas/ThreeDSRequestInfo'
+        paymentIds:
+          type: string
+          nullable: true
+        threeDSResponseInfo:
+          $ref: '#/components/schemas/ThreeDSResponseInfo'
+        paymentResult:
+          type: string
+          nullable: true
+        paymentMethod:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    Quote:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        isNew:
+          type: boolean
+          readOnly: true
+        isPurchased:
+          type: boolean
+          readOnly: true
+        hasConfigChanged:
+          type: boolean
+        isPurchaseInitiated:
+          type: boolean
+        clientSessionId:
+          type: string
+          format: uuid
+        policyNumber:
+          type: string
+          nullable: true
+        stage:
+          type: string
+          nullable: true
+        evaluatedAt:
+          type: string
+          format: string
+          nullable: true
+        input:
+          $ref: '#/components/schemas/QuoteInput'
+        basePriceEvaluationInputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasePriceEvaluationInput'
+          nullable: true
+        evaluatedPartner:
+          $ref: '#/components/schemas/PartnerSummary'
+        priceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotePriceResult'
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotePriceSummary'
+          nullable: true
+        clientInfo:
+          $ref: '#/components/schemas/ClientInfo'
+        audit:
+          $ref: '#/components/schemas/Audit'
+        customerUserId:
+          type: integer
+          format: int64
+          nullable: true
+        brandCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuoteInput:
+      type: object
+      properties:
+        cultureCode:
+          type: string
+          nullable: true
+        customerInterfaceId:
+          type: integer
+          format: int64
+        quoteType:
+          type: string
+          nullable: true
+        overrideDuplicateCheck:
+          type: boolean
+        skipPersistence:
+          type: boolean
+        planId:
+          type: integer
+          format: int64
+          nullable: true
+        quoteReferencePlanId:
+          type: integer
+          format: int64
+          nullable: true
+        homeAddress:
+          $ref: '#/components/schemas/AddressInput'
+        alternateHomeAddress:
+          $ref: '#/components/schemas/AddressInput'
+        destinationCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        departureDate:
+          $ref: '#/components/schemas/LocalDate'
+        returnDate:
+          $ref: '#/components/schemas/LocalDate'
+        coverEndDate:
+          $ref: '#/components/schemas/LocalDate'
+        campaignCode:
+          type: string
+          nullable: true
+        partnerCode:
+          type: string
+          nullable: true
+        tripValue:
+          type: number
+          format: double
+          nullable: true
+        footprintsDonation:
+          $ref: '#/components/schemas/FootprintsDonationInput'
+        basicOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicOptionInput'
+          nullable: true
+        adventureActivitiesOption:
+          $ref: '#/components/schemas/AdventureActivitiesOptionInput'
+        specifiedItemOption:
+          $ref: '#/components/schemas/SpecifiedItemOptionInput'
+        cancellationOption:
+          $ref: '#/components/schemas/CancellationOptionInput'
+        policyHolders:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyHolderInput'
+          nullable: true
+        regulatoryDeclarations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulatoryDeclarationInput'
+          nullable: true
+        externalIdentifiers:
+          $ref: '#/components/schemas/ExternalIdentifiers'
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuotePriceResult:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        standardExcess:
+          type: number
+          format: double
+          nullable: true
+        campaignId:
+          type: integer
+          format: int64
+          nullable: true
+        campaignDiscountPercentage:
+          type: number
+          format: double
+        basePriceResult:
+          $ref: '#/components/schemas/BasePriceResult'
+        optionPriceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceResult'
+          nullable: true
+      additionalProperties: false
+    QuotePriceSummary:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        totalPrice:
+          type: number
+          format: double
+        standardExcess:
+          type: number
+          format: double
+          nullable: true
+        campaignDiscountPercentage:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        basePrice:
+          $ref: '#/components/schemas/BasePriceSummary'
+        specifiedItemOptionPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+        adventureActivitiesOptionPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+        basicOptionPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceSummary'
+          nullable: true
+        tripCancellationPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+      additionalProperties: false
+    RegulatoryDeclarationInput:
+      type: object
+      properties:
+        hasAgreed:
+          type: boolean
+        termConditionId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    SpecifiedItemInput:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        itemValue:
+          type: number
+          format: double
+        itemTypeId:
+          type: integer
+          format: int64
+          nullable: true
+        itemTypeCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    SpecifiedItemOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        specifiedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecifiedItemInput'
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    TaxComponentResult:
+      type: object
+      properties:
+        taxName:
+          type: string
+          nullable: true
+        taxRatePercentage:
+          type: number
+          format: double
+          nullable: true
+        taxAmount:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    TaxComponentSummary:
+      type: object
+      properties:
+        taxName:
+          type: string
+          nullable: true
+        taxRatePercentage:
+          type: number
+          format: double
+          nullable: true
+        taxAmount:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    ThreeDSRequestInfo:
+      type: object
+      properties:
+        userAgent:
+          type: string
+          nullable: true
+        acceptHeader:
+          type: string
+          nullable: true
+        acceptLanguage:
+          type: string
+          nullable: true
+        origin:
+          type: string
+          nullable: true
+        threeDSStatus:
+          type: string
+          nullable: true
+        threeDSRequest:
+          type: string
+          nullable: true
+        browserInfo:
+          $ref: '#/components/schemas/BrowserInfo'
+      additionalProperties: false
+    ThreeDSResponseInfo:
+      type: object
+      properties:
+        threeDSStatus:
+          type: string
+          nullable: true
+        threeDSRequestPattern:
+          type: string
+          nullable: true
+        threeDSResponse:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TravelClearOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        isOptedInForScreening:
+          type: boolean
+        isOptedInForCover:
+          type: boolean
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    Validation:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          readOnly: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+          nullable: true
+      additionalProperties: false
+

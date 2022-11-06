@@ -1,7 +1,9 @@
 training:
+  # - page: index.mdx
+  #   label: Home
   - page: developer-portal/index.md
   - group: Training exercises
-    expanded: true
+    expanded: false
     pages:
       - label: Setup
         page: developer-portal/setup.md
@@ -38,34 +40,20 @@ training:
         page: developer-portal/mdx.mdx
       - label: Creating React components
         page: developer-portal/custom-component.mdx
-  - group: Petstore reference
+  - separator: API Reference Docs
+  - group: Products API reference
     expanded: false
     pages:
-      - page: openapi/reference.page.yaml/*
-
-  - group: Admin
-    expanded: true
+      - page: openapi/products.page.yaml/*
+  - group: Quotes API reference
+    expanded: false
     pages:
-      - group: Routine
-        expanded: true
-        pages:
-          - group: Rock
-            expanded: true
-            pages:
-              - group: Paper
-                expanded: true
-                pages:
-                  - group: Scissors
-                    expanded: true
-                    pages:
-                      - group: 1-2-3
-                        expanded: true
-                        pages:
-                          - group: Go
-                            expanded: true
-                            pages:
-                              - label: Upgrading
-                                # page: developer-portal/upgrade.md
+      - page: openapi/quotes.page.yaml/*
+  - group: Petstore API reference
+    expanded: false
+    pages:
+      - page: openapi/petstore.page.yaml/*
+
 alternative:
   - page: developer-portal/sidebar-alternative.md
     label: Alternative sidebar example

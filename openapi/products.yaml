@@ -1,0 +1,3032 @@
+openapi: 3.0.1
+info:
+  description: >-
+    Proin eget tortor risus. Sed porttitor lectus nibh. Vestibulum ac diam sit
+    amet quam vehicula elementum sed sit amet dui. Sed porttitor lectus nibh.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante
+    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
+    accumsan id imperdiet et, porttitor at sem. Curabitur arcu erat, accumsan id
+    imperdiet et, porttitor at sem. Praesent sapien massa, convallis a pellentesque
+    nec, egestas non nisi. Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
+    #swagger](http://swagger.io/irc/).  For this sample, you can use the api key
+    `special-key` to test the authorization filters.
+  version: 1.0.0
+  title: Products API
+  termsOfService: 'http:///terms/'
+  contact:
+    email: someemail@nibtravel.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: BaseQuoteConfig
+    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: Benefit
+    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
+  - name: Brand
+    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
+paths:
+  /v1/{brandCode}/baseQuoteConfig:
+    get:
+      tags:
+        - BaseQuoteConfig
+      summary: Get the base config of a quote
+      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: quoteType
+          in: query
+          schema:
+            type: string
+            default: SINGLETRIP
+      responses:
+        '200':
+          description: Success
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseQuoteConfig'
+  /v1/benefits/{externalId}:
+    get:
+      tags:
+        - Benefit
+      summary: Get the policy benefits
+      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      parameters:
+        - name: externalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BenefitSummary'
+  /v1/{brandCode}/brands:
+    get:
+      tags:
+        - Brand
+      summary: Get something to do with Brands
+      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandSummary'
+  /v1/{brandCode}/brands/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Something else to do with Brands
+      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: brandId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandSummary'
+  /v1/{brandCode}/campaigns/{campaignIdOrCode}:
+    get:
+      tags:
+        - Campaign
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: campaignIdOrCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: effectiveAt
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignSummary'
+  /v1/{brandCode}/countries/{countryCode}:
+    get:
+      tags:
+        - Country
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: countryCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountrySummary'
+  /v1/{brandCode}/countries:
+    post:
+      tags:
+        - Country
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySummary'
+  /v1/{brandCode}/currencies:
+    get:
+      tags:
+        - Currency
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencySummaryList'
+  /v1/{brandCode}/currencies/{currencyIdOrCode}:
+    get:
+      tags:
+        - Currency
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: currencyIdOrCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencySummaryList'
+  /v1/{brandCode}/donationConfig:
+    get:
+      tags:
+        - DonationConfig
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandDonationConfig'
+  /v1/{brandCode}/features/{insuranceContractId}:
+    get:
+      tags:
+        - Feature
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureSummaryList'
+  /v1/{brandCode}/insuranceContract/{insuranceContractId}/pds:
+    get:
+      tags:
+        - InsuranceContract
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+            default: en
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: countryCode
+          in: query
+          schema:
+            type: string
+        - name: provinceCode
+          in: query
+          schema:
+            type: string
+        - name: planId
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+  /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds:
+    get:
+      tags:
+        - InsuranceContract
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: countryCode
+          in: query
+          schema:
+            type: string
+        - name: provinceCode
+          in: query
+          schema:
+            type: string
+        - name: planId
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+  /v1/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
+    get:
+      tags:
+        - InsuranceContract
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+            default: en
+        - name: countryCode
+          in: query
+          schema:
+            type: string
+        - name: provinceCode
+          in: query
+          schema:
+            type: string
+        - name: planId
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferenceDocumentSummary'
+  /v2/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
+    get:
+      tags:
+        - InsuranceContract
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: countryCode
+          in: query
+          schema:
+            type: string
+        - name: provinceCode
+          in: query
+          schema:
+            type: string
+        - name: planId
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferenceDocumentSummary'
+  /v1/{brandCode}/insuranceContract/{insuranceContractId}/tenderTypes:
+    get:
+      tags:
+        - InsuranceContract
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: insuranceContractId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenderType'
+  /v1/{brandCode}/plans/{planId}:
+    get:
+      tags:
+        - Plan
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: partnerCode
+          in: query
+          schema:
+            type: string
+        - name: effectiveAt
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanSummary'
+  /v1/{brandCode}/plans:
+    get:
+      tags:
+        - Plan
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: effectiveAt
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: partnerCode
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanSummary'
+  /v1/{brandCode}/plans/{planId}/legacysummary:
+    get:
+      tags:
+        - Plan
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: effectiveDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanLegacySummary'
+  /v1/{brandCode}/plans/{planId}/benefits:
+    get:
+      tags:
+        - Plan
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: effectiveAt
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanBenefitsConfig'
+  /v1/{brandCode}/plans/{planId}/options:
+    get:
+      tags:
+        - Plan
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanOptionsConfig'
+  /v1/{brandCode}/quote:
+    post:
+      tags:
+        - Quote
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /v1/{brandCode}/quotewithoptions:
+    post:
+      tags:
+        - Quote
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /v1/{brandCode}/quoteCountriesConfig:
+    get:
+      tags:
+        - QuoteCountriesConfig
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+        - name: quoteType
+          in: query
+          schema:
+            type: string
+            default: SINGLETRIP
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteCountriesConfig'
+  /v1/{brandCode}/quotePanelTypes:
+    get:
+      tags:
+        - QuotePanelType
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuoteType'
+  /v1/{brandCode}/regulatoryWordingDocuments/{regulatoryWordingTranslationDocumentId}:
+    get:
+      tags:
+        - RegulatoryWordingDocument
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: regulatoryWordingTranslationDocumentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+  /v1/{brandCode}/regulatoryWordingDocuments/{planCode}/{contentTypeIdOrCode}:
+    get:
+      tags:
+        - RegulatoryWordingDocument
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: planCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: contentTypeIdOrCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sellableAt
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: partnerGroupId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: provinceId
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+  /v1/{brandCode}/regulatoryWordingDocuments:
+    get:
+      tags:
+        - RegulatoryWordingDocument
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: regulatoryWordingTranslationId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: index
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: Success
+  /v1/{brandCode}/underwriters:
+    get:
+      tags:
+        - Underwriter
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnderwriterSummaryList'
+  /v1/{brandCode}/underwriters/{underwriterId}:
+    get:
+      tags:
+        - Underwriter
+      parameters:
+        - name: brandCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: underwriterId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: preferredDocumentFileType
+          in: query
+          schema:
+            type: string
+            default: HTML
+        - name: lang
+          in: query
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnderwriterSummaryList'
+components:
+  schemas:
+    AddressConfig:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          nullable: true
+        isAddressLine2Optional:
+          type: boolean
+        isAddressLine3Optional:
+          type: boolean
+        isAddressLine4Used:
+          type: boolean
+        isAddressLine4Optional:
+          type: boolean
+          nullable: true
+        isProvinceUsed:
+          type: boolean
+        isProvinceOptional:
+          type: boolean
+          nullable: true
+        isPostalCodeOptional:
+          type: boolean
+        postalCodeRegex:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AddressInput:
+      type: object
+      properties:
+        provinceCode:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    AdventureActivitiesOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        adventureActivityIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    AdventureActivitiesOptionSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+        effectiveToDate:
+          type: string
+          format: string
+        displayOrder:
+          type: integer
+          format: int32
+        adventureActivities:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdventureActivitySummary'
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    AdventureActivitySummary:
+      type: object
+      properties:
+        adventureActivityId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        riskLevel:
+          type: integer
+          format: int32
+        hasCover:
+          type: boolean
+      additionalProperties: false
+    AgeInput:
+      type: object
+      properties:
+        isDependent:
+          type: boolean
+        age:
+          type: integer
+          format: int32
+        ageRangeId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    Audit:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: string
+      additionalProperties: false
+    BasePriceEvaluationInput:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        pricingModelTypeId:
+          type: integer
+          format: int64
+        isMultipleOfSinglePricing:
+          type: boolean
+        isWholesalePriceRoundUpDisabled:
+          type: boolean
+        ages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgeInput'
+          nullable: true
+        potentialDestinationRegionIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+        destinationRegionId:
+          type: integer
+          format: int64
+          nullable: true
+        travelDurationId:
+          type: integer
+          format: int64
+          nullable: true
+        travellerTypeId:
+          type: integer
+          format: int64
+          nullable: true
+        advancePurchaseDurationId:
+          type: integer
+          format: int64
+          nullable: true
+        isPricingTaxExclusive:
+          type: boolean
+        taxRangeAmount:
+          type: number
+          format: double
+          nullable: true
+        taxModelId:
+          type: integer
+          format: int64
+          nullable: true
+        hasRangedTaxComponents:
+          type: boolean
+        provinceId:
+          type: integer
+          format: int64
+          nullable: true
+        quoteCreatedAt:
+          type: string
+          format: string
+          nullable: true
+        partner:
+          $ref: '#/components/schemas/PartnerSummary'
+      additionalProperties: false
+    BasePriceResult:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        netListPrice:
+          type: number
+          format: double
+        netListPriceTax:
+          type: number
+          format: double
+          nullable: true
+        netListPriceExclTax:
+          type: number
+          format: double
+          readOnly: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceExclFixedAmountTaxes:
+          type: number
+          format: double
+        saleListPriceTax:
+          type: number
+          format: double
+          nullable: true
+        saleListPriceExclTax:
+          type: number
+          format: double
+          readOnly: true
+        underwriterNetPrice:
+          type: number
+          format: double
+        underwriterNetFlex:
+          type: number
+          format: double
+          nullable: true
+        underwriterNetPromotionDiscount:
+          type: number
+          format: double
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentResult'
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        priceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasePriceResultDetail'
+          nullable: true
+      additionalProperties: false
+    BasePriceResultDetail:
+      type: object
+      properties:
+        age:
+          type: integer
+          format: int32
+        ageRangeId:
+          type: integer
+          format: int64
+        netListPrice:
+          type: number
+          format: double
+        netListPriceTax:
+          type: number
+          format: double
+          nullable: true
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceExclFixedAmountTaxes:
+          type: number
+          format: double
+        saleListPriceTax:
+          type: number
+          format: double
+          nullable: true
+        saleListPriceTaxExcludingFixedTaxes:
+          type: number
+          format: double
+          nullable: true
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        underwriterNetPrice:
+          type: number
+          format: double
+        underwriterNetFlex:
+          type: number
+          format: double
+          nullable: true
+        underwriterNetPromotionDiscount:
+          type: number
+          format: double
+      additionalProperties: false
+    BasePriceSummary:
+      type: object
+      properties:
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentSummary'
+          nullable: true
+      additionalProperties: false
+    BaseQuoteConfig:
+      type: object
+      properties:
+        quotePanelTypeId:
+          type: integer
+          format: int64
+        expirySeconds:
+          type: integer
+          format: int32
+        minTravellers:
+          type: integer
+          format: int32
+        maxTravellers:
+          type: integer
+          format: int32
+        minDependents:
+          type: integer
+          format: int32
+        maxDependents:
+          type: integer
+          format: int32
+        maxPolicyHolders:
+          type: integer
+          format: int32
+          nullable: true
+        travelDurationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelDurationConfig'
+          nullable: true
+        policyHolderAgeConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyHolderAgeConfig'
+          nullable: true
+        travelRestrictionConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelRestrictionConfig'
+          nullable: true
+        maxTripValuePerTraveller:
+          type: number
+          format: double
+      additionalProperties: false
+    BasicOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        isOptedIn:
+          type: boolean
+        optedInTotalValue:
+          type: number
+          format: double
+          nullable: true
+        optedInOffsetValue:
+          type: number
+          format: double
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    BasicOptionSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+        effectiveToDate:
+          type: string
+          format: string
+        displayOrder:
+          type: integer
+          format: int32
+        optOutValue:
+          $ref: '#/components/schemas/BasicOptionValueSummary'
+        optInValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicOptionValueSummary'
+          nullable: true
+      additionalProperties: false
+    BasicOptionValueSummary:
+      type: object
+      properties:
+        totalValue:
+          type: number
+          format: double
+          nullable: true
+        offsetValue:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    BenefitSummary:
+      type: object
+      properties:
+        benefitId:
+          type: integer
+          format: int64
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        optionTypeCode:
+          type: string
+          nullable: true
+        displayOrder:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        longDescription:
+          type: string
+          nullable: true
+        appliesToDependents:
+          type: boolean
+        perPolicyHolderLimit:
+          type: number
+          format: double
+          nullable: true
+        perPolicyLimit:
+          type: number
+          format: double
+          nullable: true
+        limitLabel:
+          type: string
+          nullable: true
+        limitDescription:
+          type: string
+          nullable: true
+        childBenefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitSummary'
+          nullable: true
+      additionalProperties: false
+    BrandDonationConfig:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        brandCode:
+          type: string
+          nullable: true
+        effectiveToDate:
+          type: string
+          format: string
+        effectiveFromDate:
+          type: string
+          format: string
+        homeCountryDonationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeCountryDonationConfig'
+          nullable: true
+      additionalProperties: false
+    BrandSummary:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        effectiveToDate:
+          type: string
+          format: string
+        contentItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentSummary'
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    CalendarSystem:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        minYear:
+          type: integer
+          format: int32
+          readOnly: true
+        maxYear:
+          type: integer
+          format: int32
+          readOnly: true
+        eras:
+          type: array
+          items:
+            $ref: '#/components/schemas/Era'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CampaignSummary:
+      type: object
+      properties:
+        campaignId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CancellationCoverLimitSummary:
+      type: object
+      properties:
+        cancellationCoverLimit:
+          type: number
+          format: double
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        isCancellationCoverUnlimited:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    CancellationOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        cancellationCoverLimit:
+          type: number
+          format: double
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    CancellationOptionSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+        effectiveToDate:
+          type: string
+          format: string
+        displayOrder:
+          type: integer
+          format: int32
+        preCoverCancellationCoverLimitPerPolicyHolder:
+          type: number
+          format: double
+        preCoverCancellationCoverLimitPerPolicy:
+          type: number
+          format: double
+        maxTripValuePerTraveller:
+          type: number
+          format: double
+          nullable: true
+        cancellationCoverLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CancellationCoverLimitSummary'
+          nullable: true
+      additionalProperties: false
+    ContentSummary:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        content:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CountrySummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+        defaultTimeZoneCode:
+          type: string
+          nullable: true
+        provinces:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProvinceSummary'
+          nullable: true
+        cultureCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    CurrencySummary:
+      type: object
+      properties:
+        currencyId:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        symbol:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        hasMinorUnits:
+          type: boolean
+      additionalProperties: false
+    CurrencySummaryList:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        currencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencySummary'
+          nullable: true
+      additionalProperties: false
+    DestinationCountrySummary:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        sentenceName:
+          type: string
+          nullable: true
+        isTravelActivity:
+          type: boolean
+        effectiveToDate:
+          type: string
+          format: string
+        effectiveFromDate:
+          type: string
+          format: string
+        aliases:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    DonationBandSummary:
+      type: object
+      properties:
+        basePrice:
+          type: number
+          format: double
+        defaultDonationAmount:
+          type: number
+          format: double
+      additionalProperties: false
+    Era:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    ExternalIdentifiers:
+      type: object
+      properties:
+        externalMembershipProviderId:
+          type: integer
+          format: int64
+          nullable: true
+        externalMembershipNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FeatureSummary:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FeatureSummaryList:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureSummary'
+          nullable: true
+      additionalProperties: false
+    FeePriceSummary:
+      type: object
+      properties:
+        acquisitionFees:
+          type: number
+          format: double
+        administrationFees:
+          type: number
+          format: double
+      additionalProperties: false
+    HomeCountryDonationConfig:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          nullable: true
+        donationBands:
+          type: array
+          items:
+            $ref: '#/components/schemas/DonationBandSummary'
+          nullable: true
+      additionalProperties: false
+    HomeCountrySummary:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        timeZone:
+          type: string
+          nullable: true
+        cultureCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        provinces:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeProvinceSummary'
+          nullable: true
+        addressConfig:
+          $ref: '#/components/schemas/AddressConfig'
+        residentIdentifierConfig:
+          $ref: '#/components/schemas/ResidentIdentifierConfig'
+      additionalProperties: false
+    HomeProvinceSummary:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        provinceId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    InsuranceContractSummary:
+      type: object
+      properties:
+        insuranceContractId:
+          type: integer
+          format: int64
+        pdsUrl:
+          type: string
+          nullable: true
+        donationAccountCode:
+          type: string
+          nullable: true
+        contentItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentSummary'
+          nullable: true
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanRef'
+          nullable: true
+        languageCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    IsoDayOfWeek:
+      enum:
+        - None
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+      type: string
+    LocalDate:
+      type: object
+      properties:
+        calendar:
+          $ref: '#/components/schemas/CalendarSystem'
+        year:
+          type: integer
+          format: int32
+        month:
+          type: integer
+          format: int32
+        day:
+          type: integer
+          format: int32
+        dayOfWeek:
+          $ref: '#/components/schemas/IsoDayOfWeek'
+        yearOfEra:
+          type: integer
+          format: int32
+          readOnly: true
+        era:
+          $ref: '#/components/schemas/Era'
+        dayOfYear:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    Notification:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        tokens:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        property:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OptionItemPriceSummary:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+      additionalProperties: false
+    OptionPriceResult:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionTypeCode:
+          type: string
+          nullable: true
+        policyHolderGuid:
+          type: string
+          format: uuid
+          nullable: true
+        isOptionExplicit:
+          type: boolean
+        isDefault:
+          type: boolean
+        optionCoverageAmount:
+          type: number
+          format: double
+          nullable: true
+        netListPrice:
+          type: number
+          format: double
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        taxComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxComponentResult'
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        priceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceResultDetail'
+          nullable: true
+        underwriterNetPrice:
+          type: number
+          format: double
+        underwriterNetFlex:
+          type: number
+          format: double
+          nullable: true
+        underwriterNetPromotionDiscount:
+          type: number
+          format: double
+        minNetListPrice:
+          type: number
+          format: double
+          nullable: true
+        maxNetListPrice:
+          type: number
+          format: double
+          nullable: true
+        minSaleListPrice:
+          type: number
+          format: double
+          nullable: true
+        maxSaleListPrice:
+          type: number
+          format: double
+          nullable: true
+        maxItemValuePerPolicy:
+          type: number
+          format: double
+          nullable: true
+        displayOrder:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OptionPriceResultDetail:
+      type: object
+      properties:
+        itemGuid:
+          type: string
+          format: uuid
+        netListPrice:
+          type: number
+          format: double
+        netListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListPrice:
+          type: number
+          format: double
+        saleListPricePercentage:
+          type: number
+          format: double
+          nullable: true
+        saleListPriceTaxExcludingFixedTaxes:
+          type: number
+          format: double
+          nullable: true
+        minItemValue:
+          type: number
+          format: double
+          nullable: true
+        maxItemValuePerUnit:
+          type: number
+          format: double
+          nullable: true
+        specifiedItemTypeId:
+          type: integer
+          format: int64
+        specifiedItemTypeCode:
+          type: string
+          nullable: true
+        specifiedItemTypeName:
+          type: string
+          nullable: true
+        saleListPriceId:
+          type: integer
+          format: int64
+          nullable: true
+        saleListCommission:
+          type: number
+          format: double
+        netCampaignDiscount:
+          type: number
+          format: double
+        saleCampaignDiscount:
+          type: number
+          format: double
+        salePartnerDiscount:
+          type: number
+          format: double
+        underwriterNetPrice:
+          type: number
+          format: double
+        underwriterNetFlex:
+          type: number
+          format: double
+          nullable: true
+        underwriterNetPromotionDiscount:
+          type: number
+          format: double
+        isDefault:
+          type: boolean
+      additionalProperties: false
+    OptionPriceSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        policyHolderGuid:
+          type: string
+          format: uuid
+          nullable: true
+        price:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionItemPriceSummary'
+          nullable: true
+        displayOrder:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PartnerCommissionSummary:
+      type: object
+      properties:
+        insuranceContractId:
+          type: integer
+          format: int64
+        planId:
+          type: integer
+          format: int64
+          nullable: true
+        optionId:
+          type: integer
+          format: int64
+          nullable: true
+        underwriterFlexMarkupPercentage:
+          type: number
+          format: double
+        wholesaleMarkupPercentage:
+          type: number
+          format: double
+        commissionMarginPercentage:
+          type: number
+          format: double
+        externalMemberDiscountPercentage:
+          type: number
+          format: double
+        defaultCommissionPercentage:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    PartnerGroupSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        planIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+      additionalProperties: false
+    PartnerSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        statusCode:
+          type: string
+          nullable: true
+        partnerTypeId:
+          type: integer
+          format: int64
+        isAffiliate:
+          type: boolean
+          readOnly: true
+        isAgent:
+          type: boolean
+          readOnly: true
+        commissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerCommissionSummary'
+          nullable: true
+        sellingGroup:
+          $ref: '#/components/schemas/PartnerGroupSummary'
+        isOnAccountPurchaseEnabled:
+          type: boolean
+        isDefaultPartner:
+          type: boolean
+      additionalProperties: false
+    PlanBenefitsConfig:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        planId:
+          type: integer
+          format: int64
+        displayLimitsPerPolicy:
+          type: boolean
+        effectiveFromDate:
+          type: string
+          format: string
+          nullable: true
+        effectiveToDate:
+          type: string
+          format: string
+          nullable: true
+        benefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitSummary'
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    PlanLegacySummary:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        overrideJurisdictionCountryId:
+          type: integer
+          format: int64
+          nullable: true
+        overrideJurisdictionProvinceId:
+          type: integer
+          format: int64
+          nullable: true
+        binderId:
+          type: integer
+          format: int64
+          nullable: true
+        websiteId:
+          type: integer
+          format: int64
+        maxTravelDurationDays:
+          type: integer
+          format: int32
+          nullable: true
+        maxTravelDurationMonths:
+          type: integer
+          format: int32
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+          nullable: true
+        effectiveToDate:
+          type: string
+          format: string
+          nullable: true
+        currencyCode:
+          type: string
+          nullable: true
+        termConditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermConditionLegacySummary'
+          nullable: true
+      additionalProperties: false
+    PlanOptionsConfig:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        planId:
+          type: integer
+          format: int64
+        adventureActivitiesOption:
+          $ref: '#/components/schemas/AdventureActivitiesOptionSummary'
+        basicOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicOptionSummary'
+          nullable: true
+        specifiedItemsOption:
+          $ref: '#/components/schemas/SpecifiedItemsOptionSummary'
+        cancellationOption:
+          $ref: '#/components/schemas/CancellationOptionSummary'
+      additionalProperties: false
+    PlanRef:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        insuranceContractId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+        currencyCode:
+          type: string
+          nullable: true
+        homeCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    PlanSummary:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        planId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        insuranceContractId:
+          type: integer
+          format: int64
+        policyNumberPrefix:
+          type: string
+          nullable: true
+        policyNumberFormat:
+          type: string
+          nullable: true
+        underwriterCode:
+          type: string
+          nullable: true
+        currencyCode:
+          type: string
+          nullable: true
+        homeCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        pdsUrl:
+          type: string
+          nullable: true
+        purchaseTermsAndConditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermConditionSummary'
+          nullable: true
+        overrideJurisdictionCountryCode:
+          type: string
+          nullable: true
+        overrideJurisdictionProvinceCode:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+          nullable: true
+        effectiveToDate:
+          type: string
+          format: string
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        quoteType:
+          type: string
+          nullable: true
+        brandCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PolicyHolderAgeConfig:
+      type: object
+      properties:
+        homeCountryCode:
+          type: string
+          nullable: true
+        minTravellers:
+          type: integer
+          format: int32
+        maxTravellers:
+          type: integer
+          format: int32
+        minDependents:
+          type: integer
+          format: int32
+        maxDependents:
+          type: integer
+          format: int32
+        minTravellerAge:
+          type: integer
+          format: int32
+        maxTravellerAge:
+          type: integer
+          format: int32
+        minDependentAge:
+          type: integer
+          format: int32
+        maxDependentAge:
+          type: integer
+          format: int32
+        ageLimitTypeCode:
+          type: string
+          nullable: true
+        legalAgeOfConsent:
+          type: integer
+          format: int32
+        ambiguousAgeGap:
+          type: integer
+          format: int32
+        maxAmbiguousAge:
+          type: integer
+          format: int32
+        maxPolicyHolders:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    PolicyHolderInput:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        isDependent:
+          type: boolean
+        age:
+          type: integer
+          format: int32
+        dateOfBirth:
+          $ref: '#/components/schemas/LocalDate'
+        travelClearOption:
+          $ref: '#/components/schemas/TravelClearOptionInput'
+        residentIdentifier:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    ProvinceSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Quote:
+      type: object
+      properties:
+        hasConfigChanged:
+          type: boolean
+        clientSessionId:
+          type: string
+          format: uuid
+        stage:
+          type: string
+          nullable: true
+        evaluatedAt:
+          type: string
+          format: string
+          nullable: true
+        brandCode:
+          type: string
+          nullable: true
+        input:
+          $ref: '#/components/schemas/QuoteInput'
+        basePriceEvaluationInputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasePriceEvaluationInput'
+          nullable: true
+        evaluatedPartner:
+          $ref: '#/components/schemas/PartnerSummary'
+        priceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotePriceResult'
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotePriceSummary'
+          nullable: true
+        audit:
+          $ref: '#/components/schemas/Audit'
+        customerUserId:
+          type: integer
+          format: int64
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+        isAtOrBeyondDetailsStage:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    QuoteCountriesConfig:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        homeCountries:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeCountrySummary'
+          nullable: true
+        destinationCountries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DestinationCountrySummary'
+          nullable: true
+      additionalProperties: false
+    QuoteInput:
+      type: object
+      properties:
+        cultureCode:
+          type: string
+          nullable: true
+        customerInterfaceId:
+          type: integer
+          format: int64
+        quoteType:
+          type: string
+          nullable: true
+        planId:
+          type: integer
+          format: int64
+          nullable: true
+        homeAddress:
+          $ref: '#/components/schemas/AddressInput'
+        destinationCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        departureDate:
+          $ref: '#/components/schemas/LocalDate'
+        returnDate:
+          $ref: '#/components/schemas/LocalDate'
+        coverEndDate:
+          $ref: '#/components/schemas/LocalDate'
+        campaignCode:
+          type: string
+          nullable: true
+        partnerCode:
+          type: string
+          nullable: true
+        tripValue:
+          type: number
+          format: double
+          nullable: true
+        basicOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicOptionInput'
+          nullable: true
+        adventureActivitiesOption:
+          $ref: '#/components/schemas/AdventureActivitiesOptionInput'
+        specifiedItemOption:
+          $ref: '#/components/schemas/SpecifiedItemOptionInput'
+        cancellationOption:
+          $ref: '#/components/schemas/CancellationOptionInput'
+        policyHolders:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyHolderInput'
+          nullable: true
+        regulatoryDeclarations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulatoryDeclarationInput'
+          nullable: true
+        externalIdentifiers:
+          $ref: '#/components/schemas/ExternalIdentifiers'
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuotePriceResult:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        standardExcess:
+          type: number
+          format: double
+          nullable: true
+        campaignId:
+          type: integer
+          format: int64
+          nullable: true
+        campaignCode:
+          type: string
+          nullable: true
+        campaignDiscountPercentage:
+          type: number
+          format: double
+        basePriceResult:
+          $ref: '#/components/schemas/BasePriceResult'
+        optionPriceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceResult'
+          nullable: true
+      additionalProperties: false
+    QuotePriceSummary:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+        totalPrice:
+          type: number
+          format: double
+        totalTax:
+          type: number
+          format: double
+          readOnly: true
+        iptTax:
+          type: number
+          format: double
+          readOnly: true
+        standardExcess:
+          type: number
+          format: double
+          nullable: true
+        campaignDiscountPercentage:
+          type: number
+          format: double
+        campaignDiscount:
+          type: number
+          format: double
+        partnerDiscount:
+          type: number
+          format: double
+        basePrice:
+          $ref: '#/components/schemas/BasePriceSummary'
+        specifiedItemOptionPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+        adventureActivitiesOptionPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+        basicOptionPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceSummary'
+          nullable: true
+        tripCancellationPrice:
+          $ref: '#/components/schemas/OptionPriceSummary'
+        feePrice:
+          $ref: '#/components/schemas/FeePriceSummary'
+      additionalProperties: false
+    QuoteType:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        quoteTypeName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ReferenceDocumentSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        filename:
+          type: string
+          nullable: true
+        contentTypeCode:
+          type: string
+          nullable: true
+        contentLanguage:
+          type: array
+          items:
+            type: string
+            format: string
+          nullable: true
+      additionalProperties: false
+    RegulatoryDeclarationInput:
+      type: object
+      properties:
+        hasAgreed:
+          type: boolean
+        termConditionId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    ResidentIdentifierConfig:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        regularExpression:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SpecifiedItemInput:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        itemValue:
+          type: number
+          format: double
+        itemTypeId:
+          type: integer
+          format: int64
+          nullable: true
+        itemTypeCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    SpecifiedItemOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        specifiedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecifiedItemInput'
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    SpecifiedItemTypeSummary:
+      type: object
+      properties:
+        specifiedItemTypeId:
+          type: integer
+          format: int64
+        specifiedItemTypeCode:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        itemMaxValue:
+          type: number
+          format: double
+        infoText:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SpecifiedItemsOptionSummary:
+      type: object
+      properties:
+        optionId:
+          type: integer
+          format: int64
+        optionType:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+        effectiveToDate:
+          type: string
+          format: string
+        displayOrder:
+          type: integer
+          format: int32
+        maxSpecifiedItems:
+          type: integer
+          format: int32
+        itemMaxValue:
+          type: number
+          format: double
+          nullable: true
+        totalMaxValuePerPolicy:
+          type: number
+          format: double
+          nullable: true
+        totalMaxValuePerPolicyHolder:
+          type: number
+          format: double
+        appliesToDependents:
+          type: boolean
+        specifiedItemTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecifiedItemTypeSummary'
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    TaxComponentResult:
+      type: object
+      properties:
+        taxName:
+          type: string
+          nullable: true
+        taxRatePercentage:
+          type: number
+          format: double
+          nullable: true
+        taxAmount:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    TaxComponentSummary:
+      type: object
+      properties:
+        taxName:
+          type: string
+          nullable: true
+        taxRatePercentage:
+          type: number
+          format: double
+          nullable: true
+        taxAmount:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    TenderType:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TermConditionDocumentLegacySummary:
+      type: object
+      properties:
+        regulatoryWordingTranslationDocumentId:
+          type: integer
+          format: int64
+        regulatoryWordingTranslationId:
+          type: integer
+          format: int64
+        contentTypeId:
+          type: integer
+          format: int64
+      additionalProperties: false
+    TermConditionLegacySummary:
+      type: object
+      properties:
+        regulatoryWordingTranslationId:
+          type: integer
+          format: int64
+        termConditionDocumentLegacySummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermConditionDocumentLegacySummary'
+          nullable: true
+        policyActionTypeId:
+          type: integer
+          format: int64
+        regulatoryWordingTypeId:
+          type: integer
+          format: int64
+        countryId:
+          type: integer
+          format: int64
+          nullable: true
+        provinceId:
+          type: integer
+          format: int64
+          nullable: true
+      additionalProperties: false
+    TermConditionSummary:
+      type: object
+      properties:
+        termConditionId:
+          type: integer
+          format: int64
+        customerDeclarationText:
+          type: string
+          nullable: true
+        tokenReplacements:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenReplacement'
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        provinceCode:
+          type: string
+          nullable: true
+        policyActionTypeId:
+          type: integer
+          format: int64
+          nullable: true
+        destinationCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        partnerGroupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+      additionalProperties: false
+    TokenReplacement:
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: true
+        label:
+          type: string
+          nullable: true
+        url:
+          type: string
+          nullable: true
+        underwriterContentType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TravelClearOptionInput:
+      type: object
+      properties:
+        optionType:
+          type: string
+          nullable: true
+        isOptedInForScreening:
+          type: boolean
+        isOptedInForCover:
+          type: boolean
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    TravelDurationConfig:
+      type: object
+      properties:
+        homeCountryCode:
+          type: string
+          nullable: true
+        minAdvancePurchaseDays:
+          type: integer
+          format: int32
+        maxAdvancePurchaseDays:
+          type: integer
+          format: int32
+        defaultTravelDurationDays:
+          type: integer
+          format: int32
+        minTravelDurationDays:
+          type: integer
+          format: int32
+        maxTravelDurationDays:
+          type: integer
+          format: int32
+          nullable: true
+        maxTravelDurationMonths:
+          type: integer
+          format: int32
+          nullable: true
+        maxTripDurationDays:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    TravelRestrictionConfig:
+      type: object
+      properties:
+        homeCountryCode:
+          type: string
+          nullable: true
+        isHandledByLegacy:
+          type: boolean
+        isProvinceRequiredForQuote:
+          type: boolean
+        domesticTravelCoverTypeCode:
+          type: string
+          nullable: true
+        noProductCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        unsafeCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        sanctionedCountryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        unsupportedHomeProvinceCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    UnderwriterSummary:
+      type: object
+      properties:
+        underwriterId:
+          type: integer
+          format: int64
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        insuranceContracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsuranceContractSummary'
+          nullable: true
+      additionalProperties: false
+    UnderwriterSummaryList:
+      type: object
+      properties:
+        expirySeconds:
+          type: integer
+          format: int32
+        publicWebsiteUrl:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: string
+        effectiveToDate:
+          type: string
+          format: string
+        underwriters:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnderwriterSummary'
+          nullable: true
+        availableTranslations:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    Validation:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          readOnly: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: |-
+        Authorization header using the Bearer scheme. \r\n\r\n 
+                              Enter 'Bearer' [space] and then your token in the text input below.
+                              \r\n\r\nExample: 'Bearer someToken'
+      name: Authorization
+      in: header
+security:
+  - Bearer: []
+

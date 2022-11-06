@@ -81,6 +81,10 @@ export const theme = {
       link: '#31bbb6',
       head: '#c167e4',
     },
+
+    navbar: {
+      main: `#154a39`,
+    },
     // navbar: {
     //   main: ({ colors }) => colors.primary.main,
     //   gradient: ({ colors }) => darken(colors.tonalOffset / 2, colors.navbar.main),
@@ -90,7 +94,11 @@ export const theme = {
       // main: ({ colors }) => colors.primary.main,
       // contrastText: 'white'
     // },
+    footer: {
+      main: `#154a39`,
+    },
   },
+
 
   sidebar: {
     backgroundColor: '#fafafa',
@@ -162,6 +170,9 @@ export const theme = {
     backgroundColor: '#263238',
     width: '40%',
     // textColor: '#ffffff',
+  },
+  pre: {
+    backgroundColor: `#154a39`,
   },
   schema: {
     nestedBackground: '#fafafa',
