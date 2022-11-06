@@ -1,0 +1,125 @@
+swagger: '2.0'
+info:
+  title: WNG Credit Card Token API - master
+  version: 1.0.0
+  description: |-
+    This API provides an interface to tokenise a credit card
+    and make payments on tokenised cards.
+  contact:
+    email: CoreApplicationsDevelopment@nib.com.au
+host: cardtoken-api.nibtravelinsurance.com
+basePath: /cardtoken
+tags:
+  - name: credit card
+    description: Operations involving credit cards
+schemes:
+  - https
+paths:
+  "/tokenise":
+    post:
+      tags:
+        - credit card
+      summary: Create a token for a credit card
+      description: This service generates a credit card token for use during payments.
+      operationId: tokeniseCard
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: tokenisationRequest
+          description: ''
+          required: true
+          schema:
+            "$ref": "#/definitions/tokenisationRequest"
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/tokenisationResponse"
+        default:
+          description: Error
+          schema:
+            "$ref": "#/definitions/error"
+definitions:
+  tokenisationRequest:
+    type: object
+    required:
+      - source
+      - pan
+      - expiryMonth
+      - expiryYear
+      # - cvv
+    properties:
+      source:
+        type: string
+        description: Specifies the source system for this request
+        minLength: 2
+        maxLength: 20
+      pan:
+        type: string
+        description: Card PAN to be tokenised
+        pattern: "^[0-9]{13,19}$"
+      expiryMonth:
+        type: integer
+        minimum: 1
+        maximum: 12
+      expiryYear:
+        type: integer
+        minimum: 2018
+      # cvv:
+      #   type: string
+      #   description: Card CVV/CVC number, printed on the card
+      #   pattern: "^[0-9]{3,4}$"
+      cardHolderName:
+        type: string
+        description: The name of the card holder, as printed on the card
+  tokenisationResponse:
+    type: object
+    required:
+      - outcome
+    properties:
+      outcome:
+        type: string
+        enum:
+          - accepted
+          - declined
+        description: The outcome of the tokenise request
+      token:
+        type: string
+        description: |-
+          The tokenised value for the card specified in the request.
+          Tokens are single-use only.
+  error:
+    type: object
+    required:
+      - outcome
+    properties:
+      outcome:
+        type: string
+        enum:
+          - accepted
+          - declined
+        description: The outcome of the tokenise request
+      errorCode:
+        type: string
+        enum:
+          - 201
+          - 202
+          - 203
+          - 204
+          - 205
+          - 206
+        description: |-
+          The code for the error that has occured.
+          Values are:
+          * `201` - Invalid Card Number
+          * `202` - Invalid Transaction Id
+          * `203` - Invalid Source
+          * `204` - Invalid Expiry Date
+          * `205` - Invalid Card Verification Value
+          * `206` - Invalid Card Holder Name
+      errorMessage:
+        type: string
+        description: The error message for the errorCode
