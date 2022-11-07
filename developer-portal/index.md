@@ -1,19 +1,26 @@
 ---
-title: Training program
+title: Introduction
 ---
 
-# Training program
+This interactive developer portal is designed to let you utilise nib Travel APIs.
+# Environment access
 
-This interactive training program is designed to help you understand how to create and edit content using Redocly's developer portal.
-It's a great companion to our [developer portal docs](https://docs.redoc.ly/developer-portal/introduction/).
+To access the environments utilise the following URL for staging and production environments respectively:
 
-Spend between an hour and a day playing with the most commonly utilized features.
+| Environment  | URL |
+| ------------- | ------------- |
+| Staging  | https://api-staging.nibtravelinsurance.com  |
+| Production  | https://api.nibtravelinsurance.com |
 
-## Prerequisites
-- Basic Git and markdown knowledge
-- Node and yarn installed
-- A text editor or IDE (we like VS Code)
-- [Setup the developer portal](setup.md)
+# API access conventions
+
+APIs will be required to include a brand code parameter as part of the URL parameters passed in. This will typically be set to the brand instance. Example brand codes for nib Travel brands include:
+
+| BrandCode  | Brand |
+| ------------- | ------------- |
+| WN  | World Nomads  |
+| TIDAU  | Travel Insurance Direct Australia |
+| NIBAU  | NIB Travel Insurance (Australia) |
 
 ## Training exercises
 
@@ -36,10 +43,3 @@ Or cherry-pick them independently if you're limited on time.
 - [Modify the OAS definitions](oas-definitions.md)
 - [Adding a response object to an MDX page](mdx.mdx)
 - [Upgrade to a different version of the developer portal](upgrade.md)
-
-Upon completion, you may have questions, or you may be ready to start building your content out.
-Learn how to [deploy the developer portal](https://docs.redoc.ly/ci-cd-workflows/) to our global CDN or contact us about purchasing an enterprise license key.
-
-## Asking for help
-
-Don't be shy... we're here to help.

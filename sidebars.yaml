@@ -2,7 +2,7 @@ training:
   # - page: index.mdx
   #   label: Home
   - page: developer-portal/index.md
-  - group: Training exercises
+  - group: Use cases
     expanded: false
     pages:
       - label: Setup
@@ -53,11 +53,6 @@ training:
     expanded: false
     pages:
       - page: openapi/cardtoken.page.yaml/*
-  - group: Petstore API reference
-    expanded: false
-    pages:
-      - page: openapi/petstore.page.yaml/*
-
 alternative:
   - page: developer-portal/sidebar-alternative.md
     label: Alternative sidebar example
