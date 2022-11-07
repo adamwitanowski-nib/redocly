@@ -1,64 +1,40 @@
 ---
-title: Mermaid diagrams
+title: Quote and Purchase flows
 ---
 
-# Mermaid diagrams
+# Quote and purchase flows
 
-You can insert [mermaid](https://mermaidjs.github.io/) charts and diagrams directly into markdown. This allows you to adhere to the docs-as-code philosophy.  To insert a diagram, create a code block and specify the  `mermaid` language.
+## Quote and purchase flow
 
-A [live mermaid diagram editor](https://mermaid.live/) can be helpful when writing diagrams.
+The sequence flow for retreiving a quote is typically the following. The sequence is the following:
 
-:::attention Dependencies
+ - Retrieve a quote based on supplied parameters including trip dates, destination country, country of residence. (If applicable to the brand) A list of available products with detailed pricing information will be returned. (/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quote/post/)
+ - Add options to the quote and retrieve the updated picing information
+ - Credit card tokenisation flow to the card token API
+ - Purchase request utilising the tokenised credit card information.
 
-Mermaid requires heavy dependencies to render, so we offload that to a microservice we host in AWS.
-If you do not want to send data to our microservice, do not use Mermaid diagrams.
-
-:::
-
-## An example of a flowchart
-
-To see the flowchart, you can paste this onto the Markdown page.
-
-````md
 ```mermaid
-graph LR
-    Install --> Markdown --> Paths --> Mermaid --> ?
-```
+sequenceDiagram
+    Client->>+Quotes API: Retrieve a quote (1)
+    Quotes API->>+Client: Quote with prices 1)
+    Client->>+Quotes API: Retrieve a quote with options (2)
+    Quotes API->>+Client: Quote with prices, plus options (2)
+    Client->>+Card Token API: Tokenise credit card input data (3)
+    Card Token API->>+Client: Card token (3)
+    Client->>+Quotes API: Purchase request including tokenised credit card information (4)
 ````
 
-## Edit the flowchart
+## Retrieving product benefits
 
-This training course won't cover the mermaid library in much depth.
+The following sequence can be used to retrieve product benefits. It can include the following information:
 
-We will replace the `?` in the flowchart with what's up next:
+ - Benefit name
+ - Benefit description
+ - Benefit limit and sub-limits
 
-- page table of contents
-
-Try to edit this page and replace the `?` with `TOC`.
-
-Now, try to replace that with `Table of contents`.
-You should see an error if you replaced it like this.
-
-````md
+ This can be used to avoid hard coding benefit limits in integrated purchase paths.
 ```mermaid
-graph LR
-    Install --> Markdown --> Paths --> Mermaid --> Table of contents
-```
-
-Error: Parse error on line 2: ...> Mermaid --> Table of contents -----------------------^ Expecting 'SEMI', 'NEWLINE', 'EOF', 'AMP', 'START_LINK', 'LINK', got 'ALPHA'
+sequenceDiagram
+    Client->>+Products API: Retrieve a list of benefits for a product (Plan Id)
+    Products API->>+Client: Benefits with limits, description
 ````
-
-The space causes mermaid to error. Fix it using this escape technique.
-
-````md
-```mermaid
-graph LR
-    Install --> Markdown --> Paths --> Mermaid --> TOC[Table of contents]
-```
-````
-
-## Extra credit
-
-You could spend a day trying all of the different kinds of mermaid diagrams.
-
-You could try to reproduce the diagram on Redocly's [docs homepage](https://redocly.com/docs/).
