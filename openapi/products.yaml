@@ -1,17 +1,10 @@
 openapi: 3.0.1
 info:
   description: >-
-    Proin eget tortor risus. Sed porttitor lectus nibh. Vestibulum ac diam sit
-    amet quam vehicula elementum sed sit amet dui. Sed porttitor lectus nibh.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante
-    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-    accumsan id imperdiet et, porttitor at sem. Curabitur arcu erat, accumsan id
-    imperdiet et, porttitor at sem. Praesent sapien massa, convallis a pellentesque
-    nec, egestas non nisi. Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
-    #swagger](http://swagger.io/irc/).  For this sample, you can use the api key
-    `special-key` to test the authorization filters.
+    Retrieves information from Products API. Products API provides information
+     about product benefits, regulatory wording that can be displayed inline in purchase path,
+    core product configuration definition and access to documents including policy wording (PDS)
+    via contextual links.
   version: 1.0.0
   title: Products API
   termsOfService: 'http:///terms/'
