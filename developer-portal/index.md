@@ -1,8 +1,9 @@
 ---
 title: Introduction
 ---
+# Overview
 
-This interactive developer portal is designed to let you utilise nib Travel APIs.
+This  developer portal is designed to let you utilise nib Travel APIs.
 # Environment access
 
 To access the environments utilise the following URL for staging and production environments respectively:
@@ -22,6 +23,13 @@ APIs will be required to include a brand code parameter as part of the URL param
 | TIDAU  | Travel Insurance Direct Australia |
 | NIBAU  | NIB Travel Insurance (Australia) |
 
+Individual APIs are accessed via top level URL prefix, for example:
+
+| API  | URL |
+| ------------- | ------------- |
+| Quotes API  | https://api.nibtravelinsurance.com/quotes  |
+| Products API  | https://api.nibtravelinsurance.com/products |
+ 
 # Error handling
 
 nib Travel APIs have the following HTTP status codes returned for error handling:
@@ -33,24 +41,3 @@ nib Travel APIs have the following HTTP status codes returned for error handling
 | 401  | Unauthorised request |
 | 500  | Server error |
 
-## Training exercises
-
-Follow the training exercises sequentially.
-Or cherry-pick them independently if you're limited on time.
-
-- [Plain markdown pages](markdown.md)
-- [Changing the url paths](awesome/folders.md)
-- [Markdown with a mermaid diagram](quotepurchaseflows.md.md)
-- [The page table of contents](page-table-of-contents.md)
-- [Adding a page to the sidebar navigation](sidebar-nav.md)
-- [Disabling the search box](search.md)
-- [Changing nav and footer links](nav-footer.md)
-- [Change your logo](logo.md)
-- [Change metadata](metadata.md)
-- [Change your colors](colors.md)
-- [Change your typography](typography.md)
-- [Enable Google Analytics](analytics.md)
-- [Modify the homepage](home-page.md)
-- [Modify the OAS definitions](oas-definitions.md)
-- [Adding a response object to an MDX page](mdx.mdx)
-- [Upgrade to a different version of the developer portal](upgrade.md)

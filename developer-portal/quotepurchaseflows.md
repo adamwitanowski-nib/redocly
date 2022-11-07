@@ -32,7 +32,7 @@ The following sequence can be used to retrieve product benefits. It can include 
  - Benefit description
  - Benefit limit and sub-limits
 
-To access plan benefits it is recommend using the [Product benefits by Plan API](/openapi/products/tag/Plan/paths/~1v1~1%7BbrandCode%7D~1plans~1%7BplanId%7D~1benefits/get/)
+To access plan benefits it is recommend using the [Product benefits by Plan API](/openapi/products/tag/Plan/paths/~1v1~1%7BbrandCode%7D~1plans~1%7BplanId%7D~1benefits/get/) The plan ID parameter is passed back from the Quote response and applies to the individual plan documenting the detailed benefit and limits available.
 
  This can be used to avoid hard coding benefit limits in integrated purchase paths.
 ```mermaid
