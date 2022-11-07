@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: WNG Credit Card Token API - master
+  title: nib Travel Credit Card Token API - master
   version: 1.0.0
   description: |-
     This API provides an interface to tokenise a credit card

@@ -1,7 +1,9 @@
 openapi: 3.0.1
 info:
   title: Quotes API
-  description: Quotes API
+  description: >-
+    Quotes API provides the ability to retrieve prices based on an inputted set of parameters
+       as well as complete a booking request flow with tokenised credit card information.
   version: v1
 paths:
   /v1/{brandCode}/quote/{quoteId}/communication:
