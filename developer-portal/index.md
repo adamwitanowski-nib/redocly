@@ -41,3 +41,13 @@ nib Travel APIs have the following HTTP status codes returned for error handling
 | 401  | Unauthorised request |
 | 500  | Server error |
 
+# Authentication
+
+nib Travel API access is access via a Bearer token authorization set in the HTTP Header. 
+
+```
+Authorization: Bearer <BearerToken>
+```
+
+Access details and mechanisms can be supplied by the nib Travel partnerships team as part of the onboarding process.
+
