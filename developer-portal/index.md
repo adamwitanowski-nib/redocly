@@ -3,7 +3,9 @@ title: Introduction
 ---
 # Overview
 
-This  developer portal is designed to let you utilise nib Travel APIs.
+This developer portal is designed to let you utilise nib Travel APIs. These APIs provide the ability to provide
+integrated experiences around customised quote and purchase flows.
+
 # Environment access
 
 To access the environments utilise the following URL for staging and production environments respectively:
@@ -40,4 +42,14 @@ nib Travel APIs have the following HTTP status codes returned for error handling
 | 400  | Client error - see { error } property returned in JSON format. |
 | 401  | Unauthorised request |
 | 500  | Server error |
+
+# Authentication
+
+nib Travel API access is access via a Bearer token authorization set in the HTTP Header. 
+
+```
+Authorization: Bearer <BearerToken>
+```
+
+Access details and mechanisms can be supplied by the nib Travel partnerships team as part of the onboarding process.
 
