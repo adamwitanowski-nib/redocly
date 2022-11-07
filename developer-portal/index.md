@@ -22,6 +22,17 @@ APIs will be required to include a brand code parameter as part of the URL param
 | TIDAU  | Travel Insurance Direct Australia |
 | NIBAU  | NIB Travel Insurance (Australia) |
 
+# Error handling
+
+nib Travel APIs have the following HTTP status codes returned for error handling:
+
+| HTTP Status code  | Details |
+| ------------- | ------------- |
+| 200  | Successful request - Individual responses are documented in Swagger  |
+| 400  | Client error - see { error } property returned in JSON format. |
+| 401  | Unauthorised request |
+| 500  | Server error |
+
 ## Training exercises
 
 Follow the training exercises sequentially.
@@ -29,7 +40,7 @@ Or cherry-pick them independently if you're limited on time.
 
 - [Plain markdown pages](markdown.md)
 - [Changing the url paths](awesome/folders.md)
-- [Markdown with a mermaid diagram](mermaid.md)
+- [Markdown with a mermaid diagram](quotepurchaseflows.md.md)
 - [The page table of contents](page-table-of-contents.md)
 - [Adding a page to the sidebar navigation](sidebar-nav.md)
 - [Disabling the search box](search.md)
