@@ -3,7 +3,9 @@ title: Introduction
 ---
 # Overview
 
-This  developer portal is designed to let you utilise nib Travel APIs.
+This developer portal is designed to let you utilise nib Travel APIs. These APIs provide the ability to provide
+integrated experiences around customised quote and purchase flows.
+
 # Environment access
 
 To access the environments utilise the following URL for staging and production environments respectively:
