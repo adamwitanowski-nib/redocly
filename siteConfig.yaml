@@ -30,12 +30,16 @@ stylesheets:
 #  - ./static/intercom.js
 nav:
 
+  - label: Introduction
+    page: developer-portal/index.md
+  - label: Use Cases
+    page: developer-portal/quotepurchaseflows/index.md
   - label: API Reference Docs
     page: developer-portal/index.md
 
-  - label: External docs
-    icon: ./images/redocly-icon-white.png
-    href: https://redoc.ly/docs/developer-portal/introduction/
+  # - label: External docs
+  #   icon: ./images/redocly-icon-white.png
+  #   href: https://redoc.ly/docs/developer-portal/introduction/
 
   - search: true
 

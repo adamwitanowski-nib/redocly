@@ -4,25 +4,41 @@ info:
   description: >-
     Quotes API provides the ability to retrieve prices based on an input set of parameters
        as well as complete a booking request flow with tokenised credit card information.
-  version: v1
+
+    email: CoreApplicationsDevelopment@nib.com.au
+  version: 1.0.0
+tags:
+  - name: Communication
+    description: The endpoint allows quote to be emailed to the customer. Returns An array of available plans for sale based on the request.  Parameters are returned as part of the response.
+  - name: Purchase
+    description: Send final quote request for purchase and receive confirmation of policy purchase.
+  - name: Quote
+    description: Post initial quote request or save and update quote information.
+
 paths:
   /v1/{brandCode}/quote/{quoteId}/communication:
     post:
       tags:
         - Communication
+      summary: Email quote
+      description: The endpoint allows quote to be emailed to the customer. Returns An array of available plans for sale based on the request.  Parameters are returned as part of the response.
       parameters:
         - name: brandCode
           in: path
           required: true
           schema:
             type: string
+          description: A supported NIB Travel brand code, such as “wn”.
         - name: quoteId
           in: path
           required: true
           schema:
             type: string
+          description: The Quote Id is a GUID that was returned from the response of the initial request. The Id identifies the quote saved.
       requestBody:
+        
         content:
+          
           application/json:
             schema:
               $ref: '#/components/schemas/CommunicationRequestInput'
@@ -32,28 +48,42 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/CommunicationRequestInput'
-      responses:
+      responses: 
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationSuccess'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationError'
+    
   /v1/{brandCode}/purchase:
     post:
       tags:
         - Purchase
+      summary: Quote Purchase
+      description: Send final quote request for purchase and receive confirmation of policy purchase.
       parameters:
         - name: brandCode
           in: path
           required: true
           schema:
             type: string
+          description: A supported NIB Travel brand code, such as “wn”
       requestBody:
+        required: true
+        description: These are the additional properties that gets included in the quote payload that was being updated and maintained to progress to the final stage.
         content:
-          application/json:
+          application/json | Minimum Payload:
             schema:
-              $ref: '#/components/schemas/Purchase'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/Purchase'
-          application/*+json:
+              summary: Quote Purchase
+              $ref: '#/components/schemas/PurchaseMinimum'
+          application/json | Full Definition:
             schema:
               $ref: '#/components/schemas/Purchase'
       responses:
@@ -63,25 +93,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Purchase'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationError'
   /v1/{brandCode}/quote:
     post:
       tags:
         - Quote
+      summary: Create / Update Quote
       parameters:
         - name: brandCode
           in: path
+          description: A supported NIB Travel brand code, such as “wn”.
           required: true
           schema:
             type: string
       requestBody:
+        required: true
+        description: As initial quote is generated using only minimal payload, additional properties get included in the payload and the quote gets saved and updated with changes.  Updating quote will require the additional quote id
         content:
-          application/json:
+          application/json | Minimum Payload:
             schema:
-              $ref: '#/components/schemas/Quote'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/Quote'
-          application/*+json:
+              $ref: '#/components/schemas/QuoteMinimumAlt'
+          application/json | Full Payload:
             schema:
               $ref: '#/components/schemas/Quote'
       responses:
@@ -91,14 +128,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+        default:
+            description: error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CommunicationError'
   /v1/{brandCode}/quotewithoptions:
     post:
       tags:
         - Quote
+      summary: Create / Update Quote with options
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: A supported NIB Travel brand code, such as “wn”.
           schema:
             type: string
       requestBody:
@@ -119,19 +164,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationError'
   /v1/{brandCode}/quote/{quoteId}:
     get:
       tags:
         - Quote
+      summary: Retrieve Quote
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: A supported NIB Travel brand code, such as “wn”.
           schema:
             type: string
         - name: quoteId
           in: path
           required: true
+          description: A valid quote ID
           schema:
             type: string
             format: uuid
@@ -142,6 +196,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationError'
 components:
   schemas:
     AddressInput:
@@ -166,6 +226,19 @@ components:
           type: string
           nullable: true
         postalCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    AddressInputMinimum:
+      title: AddressInput
+      type: object
+      properties:
+        provinceCode:
+          type: string
+          nullable: true
+        countryCode:
           type: string
           nullable: true
         validation:
@@ -431,6 +504,7 @@ components:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
     CardTokenInput:
+      description: Tokenised credit card information – Unredacted credit cards should not be passed through the Quote API.
       type: object
       properties:
         token:
@@ -455,12 +529,55 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    CommunicationError:
+      type: object
+      required:
+        - outcome
+      properties:
+        errorCode:
+          type: string
+          enum:
+            - 204
+            - 404
+            - 500
+          description: |-
+            The code for the error that has occured.
+            Values are:
+            * `204` - No Content
+            * `404` - Brand not found
+            * `500` - Internal Server Error
+    CommunicationSuccess:
+      type: object
+      properties:
+        planId:
+          type: integer
+          format: int64
+          nullable: true
+        standardExcess:
+          type: number
+          format: double
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotePriceSummary'
+          nullable: true
+        basePriceResult:
+          $ref: '#/components/schemas/BasePriceResult'
+        optionPriceResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionPriceResult'
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
     CommunicationRequestInput:
       type: object
       properties:
         emailAddress:
           type: string
           nullable: true
+          description: Customer’s email address to send the quote to.
         validation:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
@@ -505,6 +622,7 @@ components:
           nullable: true
         externalMembershipNumber:
           type: string
+          description: External membership number (externalIdentifiers.externalMembershipNumber)	Can be used to populate external membership numbers.
           nullable: true
         bookingReference:
           type: string
@@ -567,6 +685,20 @@ components:
           type: integer
           format: int32
           readOnly: true
+      additionalProperties: false
+    LocalDateMinimum:
+      title: LocalDate
+      type: object
+      properties:
+        year:
+          type: integer
+          format: int32
+        month:
+          type: integer
+          format: int32
+        day:
+          type: integer
+          format: int32
       additionalProperties: false
     Notification:
       type: object
@@ -833,6 +965,48 @@ components:
         validation:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
+    PolicyHolderInputMinimumAlt:
+      title: PolicyHolderInput
+      type: object
+      properties:
+        age:
+          type: integer
+          format: int32
+        isDependent:
+          type: boolean
+        isPrimary:
+          type: boolean
+        isAmbiguous:
+          type: boolean
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    PolicyHolderInputMinimum:
+      title: PolicyHolderInput
+      type: object
+      properties:
+        dateOfBirth:
+          $ref: '#/components/schemas/LocalDateMinimum'
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        emailAddress:
+          type: string
+          nullable: true
+        travelClearOption:
+          $ref: '#/components/schemas/TravelClearOptionInput'
+        residentIdentifier:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
     Purchase:
       type: object
       properties:
@@ -855,6 +1029,17 @@ components:
         paymentMethod:
           type: string
           nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    PurchaseMinimum:
+      title: Purchase
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/QuoteMinimum'
+        cardToken:
+          $ref: '#/components/schemas/CardTokenInput'
         validation:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
@@ -920,6 +1105,43 @@ components:
         validation:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
+    QuoteMinimumAlt:
+      title: Quote
+      type: object
+      properties:
+        stage:
+          type: string
+          nullable: true
+        input:
+          $ref: '#/components/schemas/QuoteInputMinimumAlt'
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuoteMinimum:
+      title: Quote
+      type: object
+      properties:
+        isPurchaseInitiated:
+          type: boolean
+        stage:
+          type: string
+          nullable: true
+        input:
+          $ref: '#/components/schemas/QuoteInputMinimum'
+        evaluatedPartner:
+          $ref: '#/components/schemas/PartnerSummary'
+        clientInfo:
+          $ref: '#/components/schemas/ClientInfo'
+        customerUserId:
+          type: integer
+          format: int64
+          nullable: true
+        brandCode:
+          type: string
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
     QuoteInput:
       type: object
       properties:
@@ -960,6 +1182,7 @@ components:
         coverEndDate:
           $ref: '#/components/schemas/LocalDate'
         campaignCode:
+          description: Can pass in specific discount/campaign codes if a specific discount code is required. This is to allow specific published discount codes are passed through the API.
           type: string
           nullable: true
         partnerCode:
@@ -977,12 +1200,14 @@ components:
             $ref: '#/components/schemas/BasicOptionInput'
           nullable: true
         adventureActivitiesOption:
+          description: aaaa
           $ref: '#/components/schemas/AdventureActivitiesOptionInput'
         specifiedItemOption:
           $ref: '#/components/schemas/SpecifiedItemOptionInput'
         cancellationOption:
           $ref: '#/components/schemas/CancellationOptionInput'
         policyHolders:
+          description: Full policy holder information including contact details. (E-mail address, mobile number) It also includes TravelClear options if applicable.
           type: array
           items:
             $ref: '#/components/schemas/PolicyHolderInput'
@@ -994,6 +1219,60 @@ components:
           nullable: true
         externalIdentifiers:
           $ref: '#/components/schemas/ExternalIdentifiers'
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuoteInputMinimumAlt:
+      title: QuoteInput
+      type: object
+      properties:
+        customerInterfaceId:
+          type: integer
+          format: int64
+          example: 0
+        quoteType:
+          type: string
+          description: Single or Multi Trip. e.g. SINGLETRIP
+          nullable: true
+          example: SINGLETRIP
+        homeAddress:
+          $ref: '#/components/schemas/AddressInputMinimum'
+        destinationCountryCodes:
+          description: List of destination countries. There is a products API endpoint to determine the supported destination countries available.
+          type: array
+          items:
+            type: string
+          nullable: true
+        departureDate:
+          $ref: '#/components/schemas/LocalDateMinimum'
+          description: Departure date for the trip.
+        coverEndDate:
+          description: Return date for the trip.
+          $ref: '#/components/schemas/LocalDateMinimum'
+        policyHolders:
+          description: Basic traveller details including traveller ages are needed to be submitted as part of the initial quote request. This information is required to retrieve a price based on defined age bands.
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyHolderInputMinimumAlt'
+          nullable: true
+        validation:
+          $ref: '#/components/schemas/Validation'
+      additionalProperties: false
+    QuoteInputMinimum:
+      title: QuoteInput
+      type: object
+      properties:
+        policyHolders:
+          type: array
+          description: Full policy holder information including contact details. (E-mail address, mobile number) It also includes TravelClear options if applicable.
+          items:
+            $ref: '#/components/schemas/PolicyHolderInputMinimum'
+          nullable: true
+        regulatoryDeclarations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulatoryDeclarationInput'
+          nullable: true
         validation:
           $ref: '#/components/schemas/Validation'
       additionalProperties: false
@@ -1062,6 +1341,7 @@ components:
       type: object
       properties:
         hasAgreed:
+          description: Parameter indicating that the customer has agreed to the regulatory declarations highlighted in the purchase path.
           type: boolean
         termConditionId:
           type: integer
@@ -1185,6 +1465,7 @@ components:
       additionalProperties: false
     Validation:
       type: object
+      nullable: true
       properties:
         isValid:
           type: boolean
