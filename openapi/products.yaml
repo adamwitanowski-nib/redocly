@@ -389,7 +389,7 @@ paths:
                 type: string
                 enum: ['text/html', 'application/pdf']
             Content-Disposition:
-              description: Contains the document title and file name
+              description: For PDFs, contains the document title and file name
               schema:
                 type: string
 
@@ -446,7 +446,7 @@ paths:
                 type: string
                 enum: ['text/html', 'application/pdf']
             Content-Disposition:
-              description: Contains the document title and file name
+              description: For PDFs, contains the document title and file name
               schema:
                 type: string
 
@@ -926,6 +926,8 @@ paths:
 
   /v1/{brandCode}/regulatoryWordingDocuments/{regulatoryWordingTranslationDocumentId}:
     get:
+      summary: Regulatory document by ID
+      description: Returns a Regulatory Wording Document by its ID
       tags:
         - RegulatoryWordingDocument
       parameters:
@@ -936,6 +938,7 @@ paths:
           schema:
             $ref: '#/components/schemas/BrandCode'
         - name: regulatoryWordingTranslationDocumentId
+          description: The internal regulatory wording translation document ID
           in: path
           required: true
           schema:
@@ -943,9 +946,22 @@ paths:
             format: int64
       responses:
         '200':
-          description: Success
+          description: Document is returned in the response body, with Content-Type populated, and Content-Disposition populated with the title and file name
+          headers:
+            Content-Type:
+              description: The document body content type
+              schema:
+                type: string
+                enum: ['text/html', 'application/pdf']
+            Content-Disposition:
+              description: For PDFs, contains the document title and file name
+              schema:
+                type: string
+
   /v1/{brandCode}/regulatoryWordingDocuments/{planCode}/{contentTypeIdOrCode}:
     get:
+      summary: Regulatory document by plan code
+      description: Returns a Regulatory Wording Document by Plan code and content type
       tags:
         - RegulatoryWordingDocument
       parameters:
@@ -956,35 +972,52 @@ paths:
           schema:
             $ref: '#/components/schemas/BrandCode'
         - name: planCode
+          description: A valid plan code (eg "EMGASTANDARDDNK")
           in: path
           required: true
           schema:
             type: string
         - name: contentTypeIdOrCode
+          description: Either a content type id or a code
           in: path
           required: true
           schema:
             type: string
+            enum: [ '2', 'PDF', '3', 'HTML' ]
         - name: sellableAt
           in: query
           schema:
             type: string
             format: date-time
         - name: partnerGroupId
+          description: Selects for a particular partner group, where it applies
           in: query
           schema:
             type: integer
             format: int64
         - name: provinceId
+          description: Selects for a particular Province/State, where jurisdiction applies
           in: query
           schema:
             type: integer
             format: int64
       responses:
         '200':
-          description: Success
+          description: Document is returned in the response body, with Content-Type populated, and Content-Disposition populated with the title and file name
+          headers:
+            Content-Type:
+              description: The document body content type
+              schema:
+                type: string
+                enum: ['text/html', 'application/pdf']
+            Content-Disposition:
+              description: For PDFs, contains the document title and file name
+              schema:
+                type: string
+
   /v1/{brandCode}/regulatoryWordingDocuments:
     get:
+      description: Returns a Regulatory Wording Document by its Translation ID
       tags:
         - RegulatoryWordingDocument
       parameters:
@@ -995,12 +1028,14 @@ paths:
           schema:
             $ref: '#/components/schemas/BrandCode'
         - name: regulatoryWordingTranslationId
+          description: The regulatory wording translation ID
           in: query
           required: true
           schema:
             type: integer
             format: int64
         - name: index
+          description: If there is more than one document, this index allows selecting which one
           in: query
           schema:
             type: integer
@@ -1008,7 +1043,18 @@ paths:
             default: 0
       responses:
         '200':
-          description: Success
+          description: Document is returned in the response body, with Content-Type populated, and Content-Disposition populated with the title and file name
+          headers:
+            Content-Type:
+              description: The document body content type
+              schema:
+                type: string
+                enum: ['text/html', 'application/pdf']
+            Content-Disposition:
+              description: For PDFs, contains the document title and file name
+              schema:
+                type: string
+
   /v1/{brandCode}/underwriters:
     get:
       summary: Underwriters and plans
