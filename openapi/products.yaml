@@ -31,14 +31,15 @@ paths:
     get:
       tags:
         - BaseQuoteConfig
-      summary: Get the base config of a quote
-      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      summary: Retrieves configuration items related to a particular brand.
+      description: 'Retrieves configuration items related to a particular brand.'
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: quoteType
           in: query
           schema:
@@ -51,18 +52,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BaseQuoteConfig'
-  /v1/benefits/{externalId}:
+              examples:
+                wn:
+                  summary: 'World Nomads (abbreviated response)'
+                  value: {"quotePanelTypeId":0,"expirySeconds":86400,"minTravellers":1,"maxTravellers":2,"minDependents":0,"maxDependents":8,"travelDurationConfigs":[{"homeCountryCode":"AUS","minAdvancePurchaseDays":0,"maxAdvancePurchaseDays":364,"defaultTravelDurationDays":7,"minTravelDurationDays":1,"maxTravelDurationMonths":12},{"homeCountryCode":"USA","minAdvancePurchaseDays":0,"maxAdvancePurchaseDays":365,"defaultTravelDurationDays":7,"minTravelDurationDays":1,"maxTravelDurationDays":180},{"homeCountryCode":"GBR","minAdvancePurchaseDays":0,"maxAdvancePurchaseDays":364,"defaultTravelDurationDays":7,"minTravelDurationDays":1,"maxTravelDurationDays":366}],"policyHolderAgeConfigs":[{"homeCountryCode":"USA","minTravellers":1,"maxTravellers":2,"minDependents":0,"maxDependents":7,"minTravellerAge":0,"maxTravellerAge":69,"minDependentAge":0,"maxDependentAge":25,"ageLimitTypeCode":"AGEATQUOTE","legalAgeOfConsent":16,"ambiguousAgeGap":17,"maxAmbiguousAge":69},{"homeCountryCode":"GBR","minTravellers":1,"maxTravellers":2,"minDependents":0,"maxDependents":8,"minTravellerAge":0,"maxTravellerAge":64,"minDependentAge":0,"maxDependentAge":20,"ageLimitTypeCode":"AGEATQUOTE","legalAgeOfConsent":16,"ambiguousAgeGap":17,"maxAmbiguousAge":64},{"homeCountryCode":"AUS","minTravellers":1,"maxTravellers":2,"minDependents":0,"maxDependents":8,"minTravellerAge":0,"maxTravellerAge":69,"minDependentAge":0,"maxDependentAge":20,"ageLimitTypeCode":"AGEATQUOTE","legalAgeOfConsent":16,"ambiguousAgeGap":17,"maxAmbiguousAge":69}],"travelRestrictionConfigs":[{"homeCountryCode":"AUS","isHandledByLegacy":false,"isProvinceRequiredForQuote":false,"domesticTravelCoverTypeCode":"NOTCOVERED","noProductCountryCodes":["SJM","SPC","MED","EUC","CAR","ALI","AEN","AIN","XKX","WWE","WWX","WWU"],"unsafeCountryCodes":["AFG","AUW","BDI","CAF","ETH","IRN","IRQ","LBY","MLI","MMR","NER","SOM","SSD","SYR","TCD","VEN","YEM"],"sanctionedCountryCodes":["BLR","CUB","IRN","MMR","PRK","SYR","UKR","VCT","VEN"]}],"maxTripValuePerTraveller":0.0}
+
+  /v1/benefits/TVL_{brandcode}_TravelBenefit_{benefitId}:
     get:
       tags:
         - Benefit
-      summary: Get the policy benefits
-      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      summary: Get a single policy benefit
+      description: 'Get a single policy benefit'
       parameters:
-        - name: externalId
+        - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
+        - name: benefitId
+          in: path
+          required: true
+          description: An internal benefit ID, as returned by plans/{planId}/benefits
+          schema:
+            type: integer
       responses:
         '200':
           description: Success
@@ -70,45 +83,59 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BenefitSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads benefit'
+                  value: {"benefitId":10971,"code":"OVERSEASMEDICAL","displayOrder":10,"name":"Overseas medical expenses","description":"Emergency overseas medical expenses including hospitals, doctors, day surgery, outpatient treaments and prescribed medicines, for up to a year after the sudden illness (including coronavirus) first appeared or the serious injury first occurred.","longDescription":"<a href=\"{PolicyUrl}#section-11-overseas-medical-expenses\" target=\"_blank\"> Emergency overseas medical expenses</a> including hospitals, doctors, day surgery, outpatient treatments and prescribed medicines, for up to a year after the sudden illness (including coronavirus) first appeared or the serious injury first occurred.","appliesToDependents":false,"perPolicyHolderLimit":5000000.00000000}
+
   /v1/{brandCode}/brands:
     get:
       tags:
         - Brand
-      summary: Get something to do with Brands
-      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      summary: Retrieves content items related to a particular brand.
+      description: 'Retrieves content items related to a particular brand.'
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: lang
           in: query
+          description: 'Language code'
           schema:
             type: string
             format: string
       responses:
         '200':
-          description: Success
+          description: 'Response will be an object containing the list of contentItems (array) as well as the updated products database. Each item in the product array has the following structure.'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BrandSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads brand'
+                  value: {"expirySeconds":86400,"code":"WN","effectiveToDate":"1970-01-01T00:00:00Z","contentItems":[{"type":"OPTIONDISCLAIMER","content":"*Including options"},{"type":"RSPORTALURL","content":"http://service.worldnomads.com/customer/portal/articles/1063080-what-is-my-country-of-residence"},{"type":"EMAILREPLYTOANDFROM","content":"\"World Nomads UAT\" <service@uat-go.worldnomads.com>"},{"type":"NOEMAILADDRESS","content":"\"World Nomads UAT\" <no-email@uat-go.worldnomads.com>"},{"type":"EFOOTER","content":"Travel insurance doesn't cover everything. All of the information we provide is a brief summary. It does not include all terms, conditions, limitations, exclusions and termination provisions of the plans described. Coverage may not be the same or available for residents of all countries, states or provinces. Please carefully read your policy wording for a full description of coverage. WorldNomads.com Pty Limited (ABN 62 127 485 198 AR 343027, NZBN 9429050505364) at Governor Macquarie Tower, Level 18, 1 Farrer Place, Sydney, NSW, 2000, Australia is an Authorised Representative of nib Travel Services (Australia) Pty Ltd (ABN 81 115 932 173 AFSL 308461, NZBN 9429050505340), and is underwritten in Australia and New Zealand by Pacific International Insurance Pty Ltd, ABN 83 169 311 193, NZBN 9429041356500. nib Travel Services Europe Limited trading as nib Travel Services and World Nomads (CN 601851), at City Quarter, Lapps Quay, Cork, Ireland operates in both Europe and the UK; in the UK it is underwritten by Inter Partner Assistance S.A. UK Branch; in Europe it is underwritten by Inter Partner Assistance S.A. nib Travel Services Europe Limited trading as nib Travel Services and World Nomads is regulated by the Central Bank of Ireland. nib Travel Services Europe Limited trading as nib Travel Services and World Nomads is deemed authorised and regulated by the Financial Conduct Authority. The nature and extent of consumer protections may differ from those for firms based in the UK. Details of the Temporary Permissions Regime, which allows EEA-based firms to operate in the UK for a limited period while seeking full authorisation, are available on the Financial Conduct Authority’s website. WorldNomads.com Pty Limited markets and promotes travel insurance products of nib Travel Services Limited (License No.1446874), at PO Box 1051, Grand Cayman KY1-1102, Cayman Islands. World Nomads Inc. (1585422), at 2201 Broadway, Suite 300, Oakland, CA 94612, USA, plans are administered by Trip Mate Inc. (in CA & UT, dba, Trip Mate Insurance Agency) at PO Box 939073, San Diego, CA, 92193, USA, with 24-hour and Assistance Services provided by Generali Global Assistance and plans underwritten by Nationwide Mutual Insurance Company and affiliated companies, Columbus, OH. World Nomads (Canada) Ltd (BC: 0700178; Business No: 001 85379 7942 RC0001) is a licensed agent sponsored by AIG Insurance Company of Canada at 120 Bremner Boulevard, Suite 2200, Toronto, Ontario, M5J 0A8, Canada. World Experiences Seguros De Viagem Brasil Ltda (CNPJ: 21.346.969/0001-99) at Rua Padre João Manuel, 755, 16º andar, São Paulo – SP, Brazil is an Authorized Partner (Representante) of Chubb Seguros Brasil S.A. (CNPJ: 03.502.099/0001-18) at Av. Nações Unidas, nº 8.501, 27º andar -, Edifício Eldorado Business Tower, Pinheiros through the SUSEP Process 15414.900439/2015-34. All World Nomads entities listed above, including nib Travel Services Europe, nib Travel Services Limited and nib Travel Services (Australia) Pty Ltd, are subsidiaries of nib holdings limited (ABN 51 125 633 856)."}]}
+
   /v1/{brandCode}/brands/{brandId}:
     get:
       tags:
         - Brand
-      summary: Something else to do with Brands
-      description: 'Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.'
+      summary: Retrieves content items related to a particular brand by ID.
+      description: 'Retrieves content items related to a particular brand by ID.'
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code - must be valid but is ignored'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: brandId
           in: path
           required: true
+          description: 'Valid internal brand ID'
           schema:
             type: integer
             format: int64
@@ -124,6 +151,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BrandSummary'
+              examples:
+                tidau:
+                  summary: 'TIDAU /v1/wn/brands/3'
+                  value: {"expirySeconds":86400,"code":"TIDAU","effectiveToDate":"1970-01-01T00:00:00Z","contentItems":[{"type":"EMAILREPLYTOANDFROM","content":"\"Travel Insurance Direct UAT\" <service@uat-go.tid.com.au>"},{"type":"OPTIONDISCLAIMER","content":"*Including options"},{"type":"RSPORTALURL","content":"https://www.travelinsurancedirect.com.au/customer-service/resident-of-australia-definition"},{"type":"TNCHEADER","content":"If you have an existing medical condition please <a href=\"/existing-medical-conditions\" target=\"_blank\">read here</a>."},{"type":"EMAILDOC","content":"We'll email your policy documents."},{"type":"EFOOTER","content":"Travel Insurance Direct © is a registered trademark of Travel Insurance Direct Pty Limited. Travel Insurance Direct Pty Limited ABN 30 121 659 470 AR305589 is an authorised representative of nib Travel Services (Australia) Pty Ltd (nib) ABN 81 115 932 173, AFS Licence No. 308461 and act as nib's agent and not as your agent. This is general advice only. Before you buy, you should consider your needs, the <a href=\"https://www.travelinsurancedirect.com.au/policy-hub\">Product Disclosure Statement</a> (PDS) and <a href=\"https://www.travelinsurancedirect.com.au/policy-hub\">Target Market Determination</a> (TMD) available from us. This insurance is underwritten by Pacific International Insurance Pty Ltd, ABN 83 169 311 193. TID is located on Governor Macquarie Tower Level 18, 1 Farrer Place, Sydney NSW, 2000 Australia."}]}
+
   /v1/{brandCode}/campaigns/{campaignIdOrCode}:
     get:
       tags:
@@ -132,8 +164,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: campaignIdOrCode
           in: path
           required: true
@@ -151,19 +184,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CampaignSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {}
+
   /v1/{brandCode}/countries/{countryCode}:
     get:
+      summary: Returns configuration information about a Country
+      description: Returns configuration information about a Country
       tags:
         - Country
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: countryCode
           in: path
           required: true
+          description: 'A country code (as returned by baseQuoteConfig)'
           schema:
             type: string
       responses:
@@ -173,52 +215,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CountrySummary'
-  /v1/{brandCode}/countries:
-    post:
-      tags:
-        - Country
-      parameters:
-        - name: brandCode
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: string
-          text/json:
-            schema:
-              type: array
-              items:
-                type: string
-          application/*+json:
-            schema:
-              type: array
-              items:
-                type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CountrySummary'
+              examples:
+                wn:
+                  summary: '/v1/wn/countries/AUS'
+                  value: {"id":16,"code":"AUS","defaultTimeZoneCode":"Australia/Sydney","provinces":[{"id":1,"code":"ACT"},{"id":2,"code":"NSW"},{"id":3,"code":"VIC"},{"id":4,"code":"QLD"},{"id":5,"code":"SA"},{"id":6,"code":"WA"},{"id":7,"code":"TAS"},{"id":8,"code":"NT"}],"cultureCodes":["en-AU"]}
+
   /v1/{brandCode}/currencies:
     get:
+      summary: 'Returns configuration for all available currencies for a brand'
+      description: 'Returns configuration for all available currencies for a brand'
       tags:
         - Currency
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
       responses:
         '200':
           description: Success
@@ -226,17 +240,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrencySummaryList'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {"expirySeconds":86400,"currencies":[{"currencyId":1,"code":"AUD","symbol":"$","name":"Australian Dollar","hasMinorUnits":true},{"currencyId":2,"code":"NZD","symbol":"$","name":"New Zealand Dollar","hasMinorUnits":true},{"currencyId":4,"code":"CAD","symbol":"$","name":"Canada Dollar","hasMinorUnits":true},{"currencyId":6,"code":"EUR","symbol":"€","name":"Euro","hasMinorUnits":true},{"currencyId":7,"code":"GBP","symbol":"£","name":"United Kingdom Pound","hasMinorUnits":true},{"currencyId":8,"code":"USD","symbol":"$","name":"United States Dollar","hasMinorUnits":true}]}
+
   /v1/{brandCode}/currencies/{currencyIdOrCode}:
     get:
+      summary: 'Returns configuration for a single currency for a brand'
+      description: 'Returns configuration for a single currency for a brand'
       tags:
         - Currency
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: currencyIdOrCode
+          description: Either a currency code (eg AUD) or a currencyId (eg 1)
           in: path
           required: true
           schema:
@@ -248,16 +271,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrencySummaryList'
+              examples:
+                wn:
+                  summary: 'World Nomads - AUD'
+                  value: {"expirySeconds":86400,"currencies":[{"currencyId":1,"code":"AUD","symbol":"$","name":"Australian Dollar","hasMinorUnits":true}]}
+
   /v1/{brandCode}/donationConfig:
     get:
+      summary: 'Returns configuration information for a brands microdonation facility'
+      description: 'Returns configuration information for a brands microdonation facility'
       tags:
         - DonationConfig
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
       responses:
         '200':
           description: Success
@@ -265,17 +296,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BrandDonationConfig'
+              examples:
+                wn:
+                  summary: 'World Nomads (abbreviated)'
+                  value: {"expirySeconds":86400,"brandCode":"WN","effectiveToDate":"1970-01-01T00:00:00Z","effectiveFromDate":"1970-01-01T00:00:00Z","homeCountryDonationConfigs":[{"countryCode":"AUS","donationBands":[{"basePrice":0E-8,"defaultDonationAmount":2.00000000},{"basePrice":140.01000000,"defaultDonationAmount":3.00000000},{"basePrice":270.01000000,"defaultDonationAmount":5.00000000},{"basePrice":1000.01000000,"defaultDonationAmount":10.00000000},{"basePrice":5000.01000000,"defaultDonationAmount":15.00000000}]},{"countryCode":"USA","donationBands":[{"basePrice":0E-8,"defaultDonationAmount":2.00000000},{"basePrice":150.01000000,"defaultDonationAmount":3.00000000},{"basePrice":250.01000000,"defaultDonationAmount":5.00000000},{"basePrice":1000.01000000,"defaultDonationAmount":10.00000000},{"basePrice":5000.01000000,"defaultDonationAmount":15.00000000}]}]}
+
   /v1/{brandCode}/features/{insuranceContractId}:
     get:
+      summary: 'Return a set of feature switches for an Insurance Contract'
+      description: 'Return a set of feature switches for an Insurance Contract'
       tags:
         - Feature
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
+          description: 'A valid insuranceContractId number. The same as returns by /v1/{brandcode}/underwriters'
           in: path
           required: true
           schema:
@@ -288,16 +328,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FeatureSummaryList'
+              examples:
+                wn:
+                  summary: 'World Nomads - insurance contract 40'
+                  value: {"expirySeconds":86400,"features":[{"code":"CAMPEN","name":"Are campaigns enabled"},{"code":"COVIDCOVER","name":"CovidCover"},{"code":"DONATIONS","name":"Are Donations Enabled"},{"code":"GUPURCHASE","name":"IsGuestPurchaseAllowed"},{"code":"OPTINDONAT","name":"OptInDonation"}]}
+
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/pds:
     get:
+      summary: Retrieves the Product Disclosure Statement document for an insurance contract
+      description: Retrieves the Product Disclosure Statement document for an insurance contract. The document is returned in the requested format (HTML or PDF)
       tags:
         - InsuranceContract
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
           in: path
           required: true
@@ -305,6 +353,7 @@ paths:
             type: integer
             format: int64
         - name: languageCode
+          description: A language code (eg 'en')
           in: query
           schema:
             type: string
@@ -313,33 +362,50 @@ paths:
           in: query
           schema:
             type: string
+            enum: ['HTML', 'PDF']
             default: HTML
         - name: countryCode
           in: query
           schema:
             type: string
         - name: provinceCode
+          description: A Province/State code, for cases where the PDS varies by jurisdiction
           in: query
           schema:
             type: string
         - name: planId
+          description: A valid planId (see /v1/{brandcode}/plans)
           in: query
           schema:
             type: integer
             format: int64
       responses:
         '200':
-          description: Success
+          description: Document is returned in the response body, with Content-Type populated, and Content-Disposition populated with the title and file name
+          headers:
+            Content-Type:
+              description: The document body content type
+              schema:
+                type: string
+                enum: ['text/html', 'application/pdf']
+            Content-Disposition:
+              description: Contains the document title and file name
+              schema:
+                type: string
+
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds:
     get:
+      summary: Retrieves the Product Disclosure Statement document for an insurance contract
+      description: Retrieves the Product Disclosure Statement document for an insurance contract. The document is returned in the requested format (HTML or PDF)
       tags:
         - InsuranceContract
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
           in: path
           required: true
@@ -347,6 +413,7 @@ paths:
             type: integer
             format: int64
         - name: lang
+          description: A language code (eg 'en')
           in: query
           schema:
             type: string
@@ -371,17 +438,31 @@ paths:
             format: int64
       responses:
         '200':
-          description: Success
+          description: Document is returned in the response body, with Content-Type populated, and Content-Disposition populated with the title and file name
+          headers:
+            Content-Type:
+              description: The document body content type
+              schema:
+                type: string
+                enum: ['text/html', 'application/pdf']
+            Content-Disposition:
+              description: Contains the document title and file name
+              schema:
+                type: string
+
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
     get:
+      summary: Returns metadata about the PDS document
+      description: Returns metadata about the PDS document return by /v1/{brandCode}/insuranceContract/{insuranceContractId}/pds
       tags:
         - InsuranceContract
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
           in: path
           required: true
@@ -389,6 +470,7 @@ paths:
             type: integer
             format: int64
         - name: languageCode
+          description: A language code (eg 'en')
           in: query
           schema:
             type: string
@@ -413,16 +495,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReferenceDocumentSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads - insuranceContractId 40'
+                  value: {"name":"Policy Wording","filename":"WNAU_PDS_HTML_20190801.html","contentTypeCode":"HTML"}
+
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
     get:
+      summary: Returns metadata about the PDS document
+      description: Returns metadata about the PDS document return by /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds
       tags:
         - InsuranceContract
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
           in: path
           required: true
@@ -430,6 +520,7 @@ paths:
             type: integer
             format: int64
         - name: lang
+          description: A language code (eg 'en')
           in: query
           schema:
             type: string
@@ -454,17 +545,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReferenceDocumentSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {"name":"Policy Wording","filename":"WNAU_PDS_HTML_20190801.html","contentTypeCode":"HTML"}
+
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/tenderTypes:
     get:
+      summary: Return a list of tender types (payment methods) supported for an insurance contract.
+      description: Return a list of tender types (payment methods) supported for an insurance contract.
       tags:
         - InsuranceContract
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: insuranceContractId
+          description: A valid insuranceContractCode (as returned by /underwriters)
           in: path
           required: true
           schema:
@@ -472,24 +572,32 @@ paths:
             format: int64
       responses:
         '200':
-          description: Success
+          description: 'Success'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/TenderType'
+              examples:
+                wn:
+                  summary: 'World Nomads - insuranceContractId 40'
+                  value: [{"code":"visa"},{"code":"mc"},{"code":"amex"}]
+
   /v1/{brandCode}/plans/{planId}:
     get:
+      summary: Returns configuration information for a Plan by Plan ID
       tags:
         - Plan
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planId
+          description: 'A valid Plan ID - see /underwriters'
           in: path
           required: true
           schema:
@@ -510,6 +618,7 @@ paths:
           schema:
             type: string
         - name: effectiveAt
+          description: The point in time which the response relates to
           in: query
           schema:
             type: string
@@ -521,17 +630,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlanSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads - Plan Id 280'
+                  value: {"expirySeconds":86400,"planId":280,"code":"AUSTANDARD","name":"Standard","insuranceContractId":40,"policyNumberPrefix":"WN","policyNumberFormat":"[Prefix][JurisdictionCountryCode][Year][IncrementNumber]","underwriterCode":"piiau","currencyCode":"AUD","homeCountryCodes":["AUS"],"pdsUrl":"v2/wn/insuranceContract/40/pds?preferredDocumentFileType=HTML&planId=280&lang=en","purchaseTermsAndConditions":[{"termConditionId":2421,"customerDeclarationText":"I/we have read, understood and agree to the terms and conditions in the DOCUMENT0, including <a href=\"https://products-api.worldnomads.com/v1/wn/regulatoryWordingDocuments/1069your-duty-to-us\" target=\"_blank\">Your Duty to Us</a>, and I/we agree to receive all policy documents electronically.","tokenReplacements":[{"token":"DOCUMENT0","label":"Product Disclosure Statement","url":"/v1/wn/regulatoryWordingDocuments/1069"}],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2423,"customerDeclarationText":"I confirm that all people named on the policy are UNDERWRITERCONTENT0 of Australia.","tokenReplacements":[{"token":"UNDERWRITERCONTENT0","label":"residents","underwriterContentType":"RESIDENTDEFINITIONTEXT"}],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2447,"customerDeclarationText":"I/we understand that this policy does not cover losses arising from government intervention including broadly imposed quarantine or border closures; that <a href=\"https://www.worldnomads.com/help/insurance/recent-events\" target=\"_blank\">travel advice</a> may impact our cover and there is no cover for any events that there is a ‘Do Not Travel’ warning for in our destination.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2444,"customerDeclarationText":"I/we understand this policy will not cover existing medical conditions, except automatically covered conditions and when all criteria are met.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2448,"customerDeclarationText":"I/we have read in full and accept the <a href=\"https://www.worldnomads.com/privacy\" target=\"_blank\">Privacy Policy</a> and agree for personal details to be used to provide travel insurance services.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]}],"quoteType":"SINGLETRIP"}
+
   /v1/{brandCode}/plans:
     get:
+      summary: Returns configuration information for a Plan by Plan Code
       tags:
         - Plan
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planCode
+          description: A valid plan code (such as "AUSTANDARD")
           in: query
           required: true
           schema:
@@ -562,16 +679,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlanSummary'
+              examples:
+                wn:
+                  summary: 'World Nomads - Plan AUSTANDARD'
+                  value: {"expirySeconds":86400,"planId":280,"code":"AUSTANDARD","name":"Standard","insuranceContractId":40,"policyNumberPrefix":"WN","policyNumberFormat":"[Prefix][JurisdictionCountryCode][Year][IncrementNumber]","underwriterCode":"piiau","currencyCode":"AUD","homeCountryCodes":["AUS"],"pdsUrl":"v2/wn/insuranceContract/40/pds?preferredDocumentFileType=HTML&planId=280&lang=en","purchaseTermsAndConditions":[{"termConditionId":2421,"customerDeclarationText":"I/we have read, understood and agree to the terms and conditions in the DOCUMENT0, including <a href=\"https://products-api.worldnomads.com/v1/wn/regulatoryWordingDocuments/1069your-duty-to-us\" target=\"_blank\">Your Duty to Us</a>, and I/we agree to receive all policy documents electronically.","tokenReplacements":[{"token":"DOCUMENT0","label":"Product Disclosure Statement","url":"/v1/wn/regulatoryWordingDocuments/1069"}],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2423,"customerDeclarationText":"I confirm that all people named on the policy are UNDERWRITERCONTENT0 of Australia.","tokenReplacements":[{"token":"UNDERWRITERCONTENT0","label":"residents","underwriterContentType":"RESIDENTDEFINITIONTEXT"}],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2447,"customerDeclarationText":"I/we understand that this policy does not cover losses arising from government intervention including broadly imposed quarantine or border closures; that <a href=\"https://www.worldnomads.com/help/insurance/recent-events\" target=\"_blank\">travel advice</a> may impact our cover and there is no cover for any events that there is a ‘Do Not Travel’ warning for in our destination.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2444,"customerDeclarationText":"I/we understand this policy will not cover existing medical conditions, except automatically covered conditions and when all criteria are met.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]},{"termConditionId":2448,"customerDeclarationText":"I/we have read in full and accept the <a href=\"https://www.worldnomads.com/privacy\" target=\"_blank\">Privacy Policy</a> and agree for personal details to be used to provide travel insurance services.","tokenReplacements":[],"countryCode":"AUS","policyActionTypeId":1,"partnerGroupIds":[]}],"quoteType":"SINGLETRIP"}
+
   /v1/{brandCode}/plans/{planId}/legacysummary:
     get:
+      summary: Returns configuration information for a Plan by Plan ID and effective date
       tags:
         - Plan
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planId
           in: path
           required: true
@@ -579,6 +703,7 @@ paths:
             type: integer
             format: int64
         - name: effectiveDate
+          description: The point in time relevant to the response (eg 2022-10-01T00:00:00.000000000Z)
           in: query
           required: true
           schema:
@@ -591,16 +716,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlanLegacySummary'
+              examples:
+                wn:
+                  summary: 'World Nomads: /products/v1/wn/plans/280/legacySummary?effectiveDate=2022-10-01T00:00:00.000000000Z'
+                  value: {"planId":280,"websiteId":5,"currencyCode":"AUD","termConditions":[{"regulatoryWordingTranslationId":2421,"termConditionDocumentLegacySummaries":[{"regulatoryWordingTranslationDocumentId":1069,"regulatoryWordingTranslationId":2421,"contentTypeId":3}],"policyActionTypeId":1,"regulatoryWordingTypeId":1,"countryId":16},{"regulatoryWordingTranslationId":2422,"termConditionDocumentLegacySummaries":[{"regulatoryWordingTranslationDocumentId":1070,"regulatoryWordingTranslationId":2422,"contentTypeId":2}],"policyActionTypeId":1,"regulatoryWordingTypeId":1,"countryId":16},{"regulatoryWordingTranslationId":2423,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":1,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2424,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":2,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2425,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":2,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2426,"termConditionDocumentLegacySummaries":[{"regulatoryWordingTranslationDocumentId":1073,"regulatoryWordingTranslationId":2426,"contentTypeId":3}],"policyActionTypeId":4,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2427,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":4,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2430,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":13,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2431,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":13,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2444,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":1,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2446,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":4,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2447,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":1,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2448,"termConditionDocumentLegacySummaries":[],"policyActionTypeId":1,"regulatoryWordingTypeId":2,"countryId":16},{"regulatoryWordingTranslationId":2449,"termConditionDocumentLegacySummaries":[{"regulatoryWordingTranslationDocumentId":1074,"regulatoryWordingTranslationId":2449,"contentTypeId":2}],"policyActionTypeId":4,"regulatoryWordingTypeId":2,"countryId":16}]}
+
   /v1/{brandCode}/plans/{planId}/benefits:
     get:
+      summary: Returns the covered Benefits for a plan
+      description: Returns detailed configuration data about the Benefits for an insurance plan
       tags:
         - Plan
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planId
           in: path
           required: true
@@ -624,16 +757,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlanBenefitsConfig'
+              examples:
+                wn:
+                  summary: 'World Nomads - plan 280'
+                  value: {"expirySeconds":86400,"planId":280,"displayLimitsPerPolicy":true,"benefits":[{"benefitId":10971,"code":"OVERSEASMEDICAL","displayOrder":10,"name":"Overseas medical expenses","description":"Emergency overseas medical expenses including hospitals, doctors, day surgery, outpatient treaments and prescribed medicines, for up to a year after the sudden illness (including coronavirus) first appeared or the serious injury first occurred.","longDescription":"<a href=\"{PolicyUrl}section-11-overseas-medical-expenses\" target=\"_blank\"> Emergency overseas medical expenses</a> including hospitals, doctors, day surgery, outpatient treatments and prescribed medicines, for up to a year after the sudden illness (including coronavirus) first appeared or the serious injury first occurred.","appliesToDependents":false,"perPolicyHolderLimit":5000000.00000000},{"benefitId":11306,"code":"CORONAVIRUSTRAVELCOSTS","displayOrder":15,"name":"Coronavirus Travel Costs","description":"This benefit under the Explorer Plan offers cover for 8 specific events related to coronavirus, such as contracting the virus causing you to cancel the trip or causing your quarantine; a healthcare worker's leave being cancelled; or you being denied boarding due to your suspected infection with coronavirus. This is a separate benefit to the cover offered for coronavirus for Overseas medical expenses and Emergency medical transport & repatriation.","longDescription":"This benefit under the Explorer Plan offers cover for 8 specific events related to coronavirus, such as contracting the virus causing you to cancel the trip or causing your quarantine; a healthcare worker's leave being cancelled; or you being denied boarding due to your suspected infection with coronavirus. This is a separate benefit to the cover offered for coronavirus for Overseas medical expenses and Emergency medical transport & repatriation.","appliesToDependents":false,"limitDescription":"Not Insured"}]}
+
   /v1/{brandCode}/plans/{planId}/options:
     get:
+      summary: Returns the available Options for a plan
+      description: Returns the available Options for a plan
       tags:
         - Plan
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planId
           in: path
           required: true
@@ -652,6 +793,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlanOptionsConfig'
+              examples:
+                wn:
+                  summary: 'World Nomads - plan 280 (abbreviated)'
+                  value: {"expirySeconds":86400,"planId":280,"adventureActivitiesOption":{"adventureActivities":[{"adventureActivityId":14695,"name":"Abseiling","riskLevel":3,"hasCover":true},{"adventureActivityId":14739,"name":"Acrobatics","riskLevel":1,"hasCover":true}],"optionId":113,"optionType":"ADVENTUREACTIVITY","name":"Adventure Activities","effectiveFromDate":"1970-01-01T00:00:00Z","effectiveToDate":"1970-01-01T00:00:00Z","displayOrder":20},"basicOptions":[],"specifiedItemsOption":{"maxSpecifiedItems":20,"totalMaxValuePerPolicy":12000.00000000,"totalMaxValuePerPolicyHolder":6000.00000000,"appliesToDependents":false,"specifiedItemTypes":[{"specifiedItemTypeId":142,"specifiedItemTypeCode":"Sports","name":"Sports Gear","itemMaxValue":3000.00000000,"infoText":"You may specify a single item or related set of items (e.g skis + bindings = 1 item)\r\nNo cover for bicycles, bicycle accessories; any equipment over three years old; watercraft (unless it’s a surfboard); firearms; commercial items or business equipment.\r\nA $100 excess applies per event."},{"specifiedItemTypeId":143,"specifiedItemTypeCode":"Tech","name":"Tech & Cameras","itemMaxValue":3000.00000000,"infoText":"You may specify a single item or related set of items (e.g Camera + lenses + camera accessories = 1 item)\r\nNo cover for commercial items or business equipment.\r\nA $100 excess applies per event."},{"specifiedItemTypeId":144,"specifiedItemTypeCode":"Personal","name":"Personal Items","itemMaxValue":3000.00000000,"infoText":"You may specify a single item or related set of items (e.g pair of shoes = 1 item)\r\nNote: Jewellery cannot be specified.\r\nNo cover for glasses, sunglasses, contact lenses, musical instruments, dentures, hearing aids,  prostheses, antiques, loose precious stones, animals, perishables, commercial items or business equipment.\r\nA $100 excess applies per event."}],"optionId":114,"optionType":"SPECITEMS","name":"High Value Items - Standard","effectiveFromDate":"1970-01-01T00:00:00Z","effectiveToDate":"1970-01-01T00:00:00Z","displayOrder":10}}
+
   /v1/{brandCode}/quote:
     post:
       tags:
@@ -660,8 +806,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
       requestBody:
         content:
           application/json:
@@ -680,6 +827,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {}
+
   /v1/{brandCode}/quotewithoptions:
     post:
       tags:
@@ -688,8 +840,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
       requestBody:
         content:
           application/json:
@@ -708,6 +861,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {}
+
   /v1/{brandCode}/quoteCountriesConfig:
     get:
       tags:
@@ -716,8 +874,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: lang
           in: query
           schema:
@@ -735,6 +894,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuoteCountriesConfig'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {}
+
   /v1/{brandCode}/quotePanelTypes:
     get:
       tags:
@@ -743,8 +907,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
       responses:
         '200':
           description: Success
@@ -754,6 +919,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/QuoteType'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {}
+
   /v1/{brandCode}/regulatoryWordingDocuments/{regulatoryWordingTranslationDocumentId}:
     get:
       tags:
@@ -762,8 +932,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: regulatoryWordingTranslationDocumentId
           in: path
           required: true
@@ -781,8 +952,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: planCode
           in: path
           required: true
@@ -819,8 +991,9 @@ paths:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: regulatoryWordingTranslationId
           in: query
           required: true
@@ -838,18 +1011,23 @@ paths:
           description: Success
   /v1/{brandCode}/underwriters:
     get:
+      summary: Returns a list of all underwriters, insurance contracts and plans for a brand
+      description: Returns a list of all underwriters, insurance contracts and plans for a brand
       tags:
         - Underwriter
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: preferredDocumentFileType
+          description: The response contains links to the PDS. This specifies the format of the document accessed by those links.
           in: query
           schema:
             type: string
+            enum: ['HTML', 'PDF']
             default: HTML
         - name: lang
           in: query
@@ -863,26 +1041,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UnderwriterSummaryList'
+              examples:
+                wn:
+                  summary: 'World Nomads - abbreviated'
+                  value: {"expirySeconds":86400,"effectiveFromDate":"1970-01-01T00:00:00Z","effectiveToDate":"1970-01-01T00:00:00Z","underwriters":[{"underwriterId":19,"code":"piiau","name":"Pacific International (AU)","insuranceContracts":[{"insuranceContractId":40,"pdsUrl":"http://products-api-wn.uat.wng.local/v2/wn/insuranceContract/40/pds?preferredDocumentFileType=HTML&lang=en","donationAccountCode":"N0madsOz2","contentItems":[{"type":"COIEMERCONTACTNUMBER","content":"+61 2 8263 0470"},{"type":"COIEMERCONTACTNUMBERSECONDARY","content":"+61 2 8292 1470"},{"type":"COIEMERCONTACTEMAIL","content":"assist@worldnomads.com"},{"type":"RESIDENTDEFINITIONTEXT","content":"<h5>Resident means one of the following:</h5><ul class=\"disc\"><li>an Australian citizen or holder of an Australian residency visa.</li></ul><h5>A resident must also:</h5><ul class=\"disc\"><li>have unrestricted right of entry into Australia</li><li>have access to long-term medical care in Australia (not including Reciprocal Health Care Agreements)</li><li>have a permanent Australian residential address, and</li><li>agree to be repatriated, if required, back to Australia under this insurance</li></ul>"},{"type":"DEPENDENTDEFINITIONTEXT","content":"Dependents are your children or grandchildren, or others for whom you are the legal guardian, who are not in full time employment, are 20 years old or younger at the Policy Issue Date, are travelling with you for the majority of the trip and are listed as covered on your Certificate of Insurance."},{"type":"ADVENTUREACTIVITYCONDITIONSTEXT","content":"<p>* You must be with a professional, qualified and licensed guide or operator<br /># You must have the appropriate qualification, certification or license to participate in this sport, activity or experience</p>"},{"type":"TERMSANDCONDITIONSKEY","content":"Please make sure you've read the terms of your cover."},{"type":"BENEFITSLIMITDESCRIPTIONTEXT","content":"Limits shown are per policy and a <a href=\"{PdsUrl}#benefits2\" target=\"_blank\">policy excess</a> applies."},{"type":"SPECIFIEDITEMOPTIONTEXT","content":"<p>Are you taking <a href=\"https://helpdesk.worldnomads.com/customer/en/portal/articles/2403471-travel-insurance-high-value-specified-items\" target=\"_blank\">high value personal items</a> such as laptops, iPads or cameras?<p><ul><li>Adding your high value item covers your item without depreciation.</li>\t<li>Maximum of {DisplayMaxTotalValueAmount} with a {DisplayMaxPerItemAmount} limit per item.</li>\t<li>Please keep in mind that there are some <a href=\"{PdsUrl}#section4\" class=\"pds\" target=\"_blank\" data-analytics-id=\"view-pds-bottom\">excluded items</a> that we won't cover.</li></ul>"},{"type":"PURCHASEDISCLAIMER","content":"World Nomads is supported by different insurers from around the world. This insurance is arranged and promoted by <a href=\"https://www.worldnomads.com/\">WorldNomads.com</a> Pty Limited ABN 62 127 485 198 AR 343027, as an authorised representative of nib Travel Services (Australia) Pty Ltd (nib) ABN 81 115 932 173 AFSL 308461 and act as nib's agent and not as your agent. Before you buy, you should consider your needs, the Product Disclosure Statement (PDS), Financial Services Guide (FSG) and <a href=\"https://www.worldnomads.com/au/travel-insurance/policy-hub\">Target Market Determination (TMD)</a> available from us. This insurance is underwritten by Pacific International Insurance Pty Ltd, ABN 83 169 311 193."},{"type":"COVIDCOVERENABLEDBANNERTEXT","content":"<p>\r\n        Coronavirus (COVID-19) continues to impact many travellers around the world. Before you buy, read the\r\n       <a  href=\"https://www.worldnomads.com/au/help/insurance/recent-events\"  target=\"_blank\">travel alerts</a> \r\n        and check travel advice and restrictions for your destination(s) as these may impact cover, or your ability to travel.  \r\n </p>"},{"type":"RISKMITIGATIONBANNERTEXT","content":"<p>\r\n        Coronavirus (COVID-19) continues to impact many travellers around the world. Before you buy, read the\r\n       <a href=\"https://www.worldnomads.com/au/help/insurance/recent-events\"  target=\"_blank\">travel alerts</a> \r\n        and check travel advice and restrictions for your destination(s) as these may impact cover, or your ability \r\n        to travel.There are options available if you’re\r\n        <a href=\"https://www.worldnomads.com/au/help/insurance/managing-policy/cancel-your-policy\"\r\n          target=\"_blank\">unable to use your policy</a>\r\n        due to travel restrictions.\r\n </p>"}],"plans":[{"planId":280,"insuranceContractId":40,"code":"AUSTANDARD","currencyCode":"AUD","homeCountryCodes":["AUS"]},{"planId":281,"insuranceContractId":40,"code":"AUEXPLORER","currencyCode":"AUD","homeCountryCodes":["AUS"]}],"languageCode":"en"}]}]}
+
   /v1/{brandCode}/underwriters/{underwriterId}:
     get:
+      summary: Returns a single underwriter, with its insurance contracts and plans
+      description: Returns a single underwriter, with its insurance contracts and plans
       tags:
         - Underwriter
       parameters:
         - name: brandCode
           in: path
           required: true
+          description: 'Brand code'
           schema:
-            type: string
+            $ref: '#/components/schemas/BrandCode'
         - name: underwriterId
+          description: A valid underwriter ID
           in: path
           required: true
           schema:
             type: integer
             format: int64
         - name: preferredDocumentFileType
+          description: The response contains links to the PDS. This specifies the format of the document accessed by those links.
           in: query
           schema:
             type: string
+            enum: ['HTML', 'PDF']
             default: HTML
         - name: lang
           in: query
@@ -896,8 +1085,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UnderwriterSummaryList'
+              examples:
+                wn:
+                  summary: 'World Nomads'
+                  value: {"expirySeconds":86400,"effectiveFromDate":"1970-01-01T00:00:00Z","effectiveToDate":"1970-01-01T00:00:00Z","underwriters":[{"underwriterId":19,"code":"piiau","name":"Pacific International (AU)","insuranceContracts":[{"insuranceContractId":40,"pdsUrl":"http://products-api-wn.uat.wng.local/v2/wn/insuranceContract/40/pds?preferredDocumentFileType=HTML&lang=en","donationAccountCode":"N0madsOz2","contentItems":[{"type":"COIEMERCONTACTNUMBER","content":"+61 2 8263 0470"},{"type":"COIEMERCONTACTNUMBERSECONDARY","content":"+61 2 8292 1470"},{"type":"COIEMERCONTACTEMAIL","content":"assist@worldnomads.com"},{"type":"RESIDENTDEFINITIONTEXT","content":"<h5>Resident means one of the following:</h5><ul class=\"disc\"><li>an Australian citizen or holder of an Australian residency visa.</li></ul><h5>A resident must also:</h5><ul class=\"disc\"><li>have unrestricted right of entry into Australia</li><li>have access to long-term medical care in Australia (not including Reciprocal Health Care Agreements)</li><li>have a permanent Australian residential address, and</li><li>agree to be repatriated, if required, back to Australia under this insurance</li></ul>"},{"type":"DEPENDENTDEFINITIONTEXT","content":"Dependents are your children or grandchildren, or others for whom you are the legal guardian, who are not in full time employment, are 20 years old or younger at the Policy Issue Date, are travelling with you for the majority of the trip and are listed as covered on your Certificate of Insurance."},{"type":"ADVENTUREACTIVITYCONDITIONSTEXT","content":"<p>* You must be with a professional, qualified and licensed guide or operator<br /># You must have the appropriate qualification, certification or license to participate in this sport, activity or experience</p>"},{"type":"TERMSANDCONDITIONSKEY","content":"Please make sure you've read the terms of your cover."},{"type":"BENEFITSLIMITDESCRIPTIONTEXT","content":"Limits shown are per policy and a <a href=\"{PdsUrl}#benefits2\" target=\"_blank\">policy excess</a> applies."},{"type":"SPECIFIEDITEMOPTIONTEXT","content":"<p>Are you taking <a href=\"https://helpdesk.worldnomads.com/customer/en/portal/articles/2403471-travel-insurance-high-value-specified-items\" target=\"_blank\">high value personal items</a> such as laptops, iPads or cameras?<p><ul><li>Adding your high value item covers your item without depreciation.</li>\t<li>Maximum of {DisplayMaxTotalValueAmount} with a {DisplayMaxPerItemAmount} limit per item.</li>\t<li>Please keep in mind that there are some <a href=\"{PdsUrl}#section4\" class=\"pds\" target=\"_blank\" data-analytics-id=\"view-pds-bottom\">excluded items</a> that we won't cover.</li></ul>"},{"type":"PURCHASEDISCLAIMER","content":"World Nomads is supported by different insurers from around the world. This insurance is arranged and promoted by <a href=\"https://www.worldnomads.com/\">WorldNomads.com</a> Pty Limited ABN 62 127 485 198 AR 343027, as an authorised representative of nib Travel Services (Australia) Pty Ltd (nib) ABN 81 115 932 173 AFSL 308461 and act as nib's agent and not as your agent. Before you buy, you should consider your needs, the Product Disclosure Statement (PDS), Financial Services Guide (FSG) and <a href=\"https://www.worldnomads.com/au/travel-insurance/policy-hub\">Target Market Determination (TMD)</a> available from us. This insurance is underwritten by Pacific International Insurance Pty Ltd, ABN 83 169 311 193."},{"type":"COVIDCOVERENABLEDBANNERTEXT","content":"<p>\r\n        Coronavirus (COVID-19) continues to impact many travellers around the world. Before you buy, read the\r\n       <a  href=\"https://www.worldnomads.com/au/help/insurance/recent-events\"  target=\"_blank\">travel alerts</a> \r\n        and check travel advice and restrictions for your destination(s) as these may impact cover, or your ability to travel.  \r\n </p>"},{"type":"RISKMITIGATIONBANNERTEXT","content":"<p>\r\n        Coronavirus (COVID-19) continues to impact many travellers around the world. Before you buy, read the\r\n       <a href=\"https://www.worldnomads.com/au/help/insurance/recent-events\"  target=\"_blank\">travel alerts</a> \r\n        and check travel advice and restrictions for your destination(s) as these may impact cover, or your ability \r\n        to travel.There are options available if you’re\r\n        <a href=\"https://www.worldnomads.com/au/help/insurance/managing-policy/cancel-your-policy\"\r\n          target=\"_blank\">unable to use your policy</a>\r\n        due to travel restrictions.\r\n </p>"}],"plans":[{"planId":280,"insuranceContractId":40,"code":"AUSTANDARD","currencyCode":"AUD","homeCountryCodes":["AUS"]},{"planId":281,"insuranceContractId":40,"code":"AUEXPLORER","currencyCode":"AUD","homeCountryCodes":["AUS"]}],"languageCode":"en"}]}]}
+
 components:
   schemas:
+    BrandCode:
+      type: string
+      enum: [ 'cota', 'mt1', 'nibau', 'nibnz', 'ns', 'qan', 'ss', 'tidau', 'tidnz', 'wn ']
     AddressConfig:
       type: object
       properties:
