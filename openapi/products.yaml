@@ -31,7 +31,7 @@ paths:
     get:
       tags:
         - BaseQuoteConfig
-      summary: Retrieves configuration items related to a particular brand.
+      summary: Quote configuration
       description: 'Retrieves configuration items related to a particular brand.'
       parameters:
         - name: brandCode
@@ -61,7 +61,7 @@ paths:
     get:
       tags:
         - Benefit
-      summary: Get a single policy benefit
+      summary: Policy benefit
       description: 'Get a single policy benefit'
       parameters:
         - name: brandCode
@@ -92,7 +92,7 @@ paths:
     get:
       tags:
         - Brand
-      summary: Retrieves content items related to a particular brand.
+      summary: Brand content
       description: 'Retrieves content items related to a particular brand.'
       parameters:
         - name: brandCode
@@ -123,7 +123,7 @@ paths:
     get:
       tags:
         - Brand
-      summary: Retrieves content items related to a particular brand by ID.
+      summary: Brand content by ID
       description: 'Retrieves content items related to a particular brand by ID.'
       parameters:
         - name: brandCode
@@ -191,7 +191,7 @@ paths:
 
   /v1/{brandCode}/countries/{countryCode}:
     get:
-      summary: Returns configuration information about a Country
+      summary: Country configuration
       description: Returns configuration information about a Country
       tags:
         - Country
@@ -222,7 +222,7 @@ paths:
 
   /v1/{brandCode}/currencies:
     get:
-      summary: 'Returns configuration for all available currencies for a brand'
+      summary: Available currencies
       description: 'Returns configuration for all available currencies for a brand'
       tags:
         - Currency
@@ -247,7 +247,7 @@ paths:
 
   /v1/{brandCode}/currencies/{currencyIdOrCode}:
     get:
-      summary: 'Returns configuration for a single currency for a brand'
+      summary: Currency configuration
       description: 'Returns configuration for a single currency for a brand'
       tags:
         - Currency
@@ -278,7 +278,7 @@ paths:
 
   /v1/{brandCode}/donationConfig:
     get:
-      summary: 'Returns configuration information for a brands microdonation facility'
+      summary: Donation configuration
       description: 'Returns configuration information for a brands microdonation facility'
       tags:
         - DonationConfig
@@ -303,7 +303,7 @@ paths:
 
   /v1/{brandCode}/features/{insuranceContractId}:
     get:
-      summary: 'Return a set of feature switches for an Insurance Contract'
+      summary: Feature switches
       description: 'Return a set of feature switches for an Insurance Contract'
       tags:
         - Feature
@@ -335,7 +335,7 @@ paths:
 
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/pds:
     get:
-      summary: Retrieves the Product Disclosure Statement document for an insurance contract
+      summary: Retrieve PDS
       description: Retrieves the Product Disclosure Statement document for an insurance contract. The document is returned in the requested format (HTML or PDF)
       tags:
         - InsuranceContract
@@ -395,7 +395,7 @@ paths:
 
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds:
     get:
-      summary: Retrieves the Product Disclosure Statement document for an insurance contract
+      summary: Retrieve PDS
       description: Retrieves the Product Disclosure Statement document for an insurance contract. The document is returned in the requested format (HTML or PDF)
       tags:
         - InsuranceContract
@@ -452,7 +452,7 @@ paths:
 
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
     get:
-      summary: Returns metadata about the PDS document
+      summary: Retrieve PDS metadata
       description: Returns metadata about the PDS document return by /v1/{brandCode}/insuranceContract/{insuranceContractId}/pds
       tags:
         - InsuranceContract
@@ -502,7 +502,7 @@ paths:
 
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
     get:
-      summary: Returns metadata about the PDS document
+      summary: Retrieve PDS metadata
       description: Returns metadata about the PDS document return by /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds
       tags:
         - InsuranceContract
@@ -552,7 +552,7 @@ paths:
 
   /v1/{brandCode}/insuranceContract/{insuranceContractId}/tenderTypes:
     get:
-      summary: Return a list of tender types (payment methods) supported for an insurance contract.
+      summary: Tender types
       description: Return a list of tender types (payment methods) supported for an insurance contract.
       tags:
         - InsuranceContract
@@ -586,7 +586,7 @@ paths:
 
   /v1/{brandCode}/plans/{planId}:
     get:
-      summary: Returns configuration information for a Plan by Plan ID
+      summary: Configuration by ID
       tags:
         - Plan
       parameters:
@@ -637,7 +637,7 @@ paths:
 
   /v1/{brandCode}/plans:
     get:
-      summary: Returns configuration information for a Plan by Plan Code
+      summary: Configuration by Code
       tags:
         - Plan
       parameters:
@@ -686,7 +686,7 @@ paths:
 
   /v1/{brandCode}/plans/{planId}/legacysummary:
     get:
-      summary: Returns configuration information for a Plan by Plan ID and effective date
+      summary: Configuration by ID and date
       tags:
         - Plan
       parameters:
@@ -723,7 +723,7 @@ paths:
 
   /v1/{brandCode}/plans/{planId}/benefits:
     get:
-      summary: Returns the covered Benefits for a plan
+      summary: Benefits
       description: Returns detailed configuration data about the Benefits for an insurance plan
       tags:
         - Plan
@@ -764,7 +764,7 @@ paths:
 
   /v1/{brandCode}/plans/{planId}/options:
     get:
-      summary: Returns the available Options for a plan
+      summary: Options
       description: Returns the available Options for a plan
       tags:
         - Plan
@@ -1011,7 +1011,7 @@ paths:
           description: Success
   /v1/{brandCode}/underwriters:
     get:
-      summary: Returns a list of all underwriters, insurance contracts and plans for a brand
+      summary: Underwriters and plans
       description: Returns a list of all underwriters, insurance contracts and plans for a brand
       tags:
         - Underwriter
@@ -1048,7 +1048,7 @@ paths:
 
   /v1/{brandCode}/underwriters/{underwriterId}:
     get:
-      summary: Returns a single underwriter, with its insurance contracts and plans
+      summary: Single underwriter and plans
       description: Returns a single underwriter, with its insurance contracts and plans
       tags:
         - Underwriter
