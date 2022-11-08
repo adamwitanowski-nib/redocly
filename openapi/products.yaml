@@ -14,23 +14,23 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: BaseQuoteConfig
-    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
-  - name: Benefit
-    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
   - name: Brand
-    description: Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
+    description: Endpoints to retrieve configuration at the brand level
+  - name: InsuranceContract
+    description: Endpoints to retrieve information about Insurance Contracts
+  - name: Plan
+    description: Endpoints to retrieve configuration of Insurance Contracts and Plans
+  - name: Quote
+    description: Endpoints to access configuration for the quoting process, and to validate and quotes
+  - name: RegulatoryWording
+    description: Endpoints to retrieve Plan regulatory wording content
+  - name: Campaign
+    description: Endpoints for campaign mappings
 paths:
   /v1/{brandCode}/baseQuoteConfig:
     get:
       tags:
-        - BaseQuoteConfig
+        - Quote
       summary: Quote configuration
       description: 'Retrieves configuration items related to a particular brand.'
       parameters:
@@ -60,7 +60,7 @@ paths:
   /v1/benefits/TVL_{brandcode}_TravelBenefit_{benefitId}:
     get:
       tags:
-        - Benefit
+        - Plan
       summary: Policy benefit
       description: 'Get a single policy benefit'
       parameters:
@@ -197,7 +197,7 @@ paths:
       summary: Country configuration
       description: Returns configuration information about a Country
       tags:
-        - Country
+        - Brand
       parameters:
         - name: brandCode
           in: path
@@ -228,7 +228,7 @@ paths:
       summary: Available currencies
       description: 'Returns configuration for all available currencies for a brand'
       tags:
-        - Currency
+        - Brand
       parameters:
         - name: brandCode
           in: path
@@ -253,7 +253,7 @@ paths:
       summary: Currency configuration
       description: 'Returns configuration for a single currency for a brand'
       tags:
-        - Currency
+        - Brand
       parameters:
         - name: brandCode
           in: path
@@ -284,7 +284,7 @@ paths:
       summary: Donation configuration
       description: 'Returns configuration information for a brands microdonation facility'
       tags:
-        - DonationConfig
+        - Brand
       parameters:
         - name: brandCode
           in: path
@@ -309,7 +309,7 @@ paths:
       summary: Feature switches
       description: 'Return a set of feature switches for an Insurance Contract'
       tags:
-        - Feature
+        - InsuranceContract
       parameters:
         - name: brandCode
           in: path
@@ -398,7 +398,7 @@ paths:
 
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds:
     get:
-      summary: Retrieve PDS
+      summary: Retrieve PDS V2
       description: Retrieves the Product Disclosure Statement document for an insurance contract. The document is returned in the requested format (HTML or PDF)
       tags:
         - InsuranceContract
@@ -505,7 +505,7 @@ paths:
 
   /v2/{brandCode}/insuranceContract/{insuranceContractId}/pdsSummary:
     get:
-      summary: Retrieve PDS metadata
+      summary: Retrieve PDS metadata V2
       description: Returns metadata about the PDS document return by /v2/{brandCode}/insuranceContract/{insuranceContractId}/pds
       tags:
         - InsuranceContract
@@ -878,7 +878,7 @@ paths:
       summary: Quote countries
       description: Retrieves detailed country information for the quote process
       tags:
-        - QuoteCountriesConfig
+        - Quote
       parameters:
         - name: brandCode
           in: path
@@ -916,7 +916,7 @@ paths:
       summary: Quote panels
       description: Returns the available quote types
       tags:
-        - QuotePanelType
+        - Quote
       parameters:
         - name: brandCode
           in: path
@@ -943,7 +943,7 @@ paths:
       summary: Regulatory document by ID
       description: Returns a Regulatory Wording Document by its ID
       tags:
-        - RegulatoryWordingDocument
+        - RegulatoryWording
       parameters:
         - name: brandCode
           in: path
@@ -977,7 +977,7 @@ paths:
       summary: Regulatory document by plan code
       description: Returns a Regulatory Wording Document by Plan code and content type
       tags:
-        - RegulatoryWordingDocument
+        - RegulatoryWording
       parameters:
         - name: brandCode
           in: path
@@ -1033,7 +1033,7 @@ paths:
     get:
       description: Returns a Regulatory Wording Document by its Translation ID
       tags:
-        - RegulatoryWordingDocument
+        - RegulatoryWording
       parameters:
         - name: brandCode
           in: path
@@ -1074,7 +1074,7 @@ paths:
       summary: Underwriters and plans
       description: Returns a list of all underwriters, insurance contracts and plans for a brand
       tags:
-        - Underwriter
+        - Brand
       parameters:
         - name: brandCode
           in: path
@@ -1111,7 +1111,7 @@ paths:
       summary: Single underwriter and plans
       description: Returns a single underwriter, with its insurance contracts and plans
       tags:
-        - Underwriter
+        - Brand
       parameters:
         - name: brandCode
           in: path
