@@ -158,6 +158,8 @@ paths:
 
   /v1/{brandCode}/campaigns/{campaignIdOrCode}:
     get:
+      summary: Campaigns
+      description: Returns information for a campaign code
       tags:
         - Campaign
       parameters:
@@ -168,6 +170,7 @@ paths:
           schema:
             $ref: '#/components/schemas/BrandCode'
         - name: campaignIdOrCode
+          description: A campaign ID or code
           in: path
           required: true
           schema:
@@ -187,7 +190,7 @@ paths:
               examples:
                 wn:
                   summary: 'World Nomads'
-                  value: {}
+                  value: {"campaignId":8,"code":"NOMADS10"}
 
   /v1/{brandCode}/countries/{countryCode}:
     get:
@@ -800,6 +803,8 @@ paths:
 
   /v1/{brandCode}/quote:
     post:
+      summary: Evaluate quote
+      description: Evaluates and returns a processed/calculated quote for the supplied quote. The supplied quote must contain a quote input. The returned quote contains the original input as well as the calculated quote price summaries.
       tags:
         - Quote
       parameters:
@@ -834,6 +839,8 @@ paths:
 
   /v1/{brandCode}/quotewithoptions:
     post:
+      summary: Evaluate quote with options
+      description: Evaluates and returns a processed/calculated quote for the supplied quote with all options. The supplied quote must contain a quote input. The returned quote contains the original input as well as the calculated quote price summaries.
       tags:
         - Quote
       parameters:
@@ -868,6 +875,8 @@ paths:
 
   /v1/{brandCode}/quoteCountriesConfig:
     get:
+      summary: Quote countries
+      description: Retrieves detailed country information for the quote process
       tags:
         - QuoteCountriesConfig
       parameters:
@@ -878,14 +887,17 @@ paths:
           schema:
             $ref: '#/components/schemas/BrandCode'
         - name: lang
+          description: A language code
           in: query
           schema:
             type: string
             format: string
         - name: quoteType
+          description: The type of travel to quote for (see /quotePanelTypes)
           in: query
           schema:
             type: string
+            enum: [ 'SINGLETRIP', 'MULTITRIP', 'PRETRIP', 'INBOUND' ]
             default: SINGLETRIP
       responses:
         '200':
@@ -896,11 +908,13 @@ paths:
                 $ref: '#/components/schemas/QuoteCountriesConfig'
               examples:
                 wn:
-                  summary: 'World Nomads'
-                  value: {}
+                  summary: 'World Nomads (abbreviated)'
+                  value: {"expirySeconds":86400,"homeCountries":[{"code":"AUS","countryId":16,"name":"Australia","timeZone":"Australia/Sydney","cultureCodes":["en-AU"],"provinces":[{"code":"ACT","provinceId":1,"name":"Australian Capital Territory","countryCode":"AUS"},{"code":"NSW","provinceId":2,"name":"New South Wales","countryCode":"AUS"},{"code":"NT","provinceId":8,"name":"Northern Territory","countryCode":"AUS"},{"code":"QLD","provinceId":4,"name":"Queensland","countryCode":"AUS"},{"code":"SA","provinceId":5,"name":"South Australia","countryCode":"AUS"},{"code":"TAS","provinceId":7,"name":"Tasmania","countryCode":"AUS"},{"code":"VIC","provinceId":3,"name":"Victoria","countryCode":"AUS"},{"code":"WA","provinceId":6,"name":"Western Australia","countryCode":"AUS"}],"addressConfig":{"countryCode":"AUS","isAddressLine2Optional":true,"isAddressLine3Optional":false,"isAddressLine4Used":false,"isAddressLine4Optional":false,"isProvinceUsed":true,"isProvinceOptional":false,"isPostalCodeOptional":false,"postalCodeRegex":"^\\d{4,4}$"}}],"destinationCountries":[{"code":"FRA","name":"France","sentenceName":"France","isTravelActivity":false,"effectiveToDate":"1970-01-01T00:00:00Z","effectiveFromDate":"1970-01-01T00:00:00Z","aliases":["France","Bordeaux","Isle of Pines","Lifou","Loyalty Islands","Lyon","Marseille","Nice","Paris","Strasbourg"]}]}
 
   /v1/{brandCode}/quotePanelTypes:
     get:
+      summary: Quote panels
+      description: Returns the available quote types
       tags:
         - QuotePanelType
       parameters:
@@ -922,7 +936,7 @@ paths:
               examples:
                 wn:
                   summary: 'World Nomads'
-                  value: {}
+                  value: [{"code":"SINGLETRIP","quoteTypeName":"Default Single Trip"}]
 
   /v1/{brandCode}/regulatoryWordingDocuments/{regulatoryWordingTranslationDocumentId}:
     get:
