@@ -9,6 +9,8 @@ training:
         page: developer-portal/quotepurchaseflows.md   
       - label: Options
         page: developer-portal/options.md           
+      - label: External Membership numbers
+        page: developer-portal/externalmembershipnumbers.md
   - separator: API Reference Docs
   - group: Products API reference
     expanded: false
