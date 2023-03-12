@@ -6,9 +6,11 @@ title: Options
 
 Options are optional extras that can be added to the product after a plan is selected.
 
+These can be added using the [Quotes API with Options](/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quotewithoptions/post/) method.
+
 ## Available options
 
-The following are the available options available. Note that each product offered will not support all options provided below.
+The following are the available options available. Note that each product offered will not support all options provided below and available options will be product dependent:
 
 | Option Code | Description |
 | ----------- | ----------- | 
@@ -18,7 +20,7 @@ The following are the available options available. Note that each product offere
 | ADVENTUREACTIVITY | Adventure activity (World Nomads only) |
 | SNOWSPORTS | Snow sports |
 | TRIPCANX | Trip cancellation value |
-| POLEXCESSPERCENT | Policy excess buy out percentage |
+| POLEXCESSPERCENT | Policy excess buy out option |
 | TRIPCANXPERCENT | Trip cancellation percentage |
 | CRUISE | Cruise option |
 
@@ -42,26 +44,33 @@ basicOptions : [
 
 ## Specified item option requests
 
-name - Name of specified item (E.g. 'iphone 14')
-itemValue - Requested value to cover the specified item option. Needs to be below the individual item limit on the policy.
-itemTypeCode - TBC, how do get the value of the individual itemTypeCodes? Where this is configured in the API definition?
+| Attribute | Description |
+| ----------- | ----------- | 
+| name   | Name of specified item (E.g. 'iphone 14') |
+| itemValue | Requested value to cover the specified item option |
+| itemTypeCode | The following types are available:
+ - Electronic
+ - Sport
+ - Other|
 
 ```javascript
 specifiedItemOption : {
-optionType
+"SPECITEMS",
 specfifiedItems : [
-   "name", 
-   "itemValue",
-   "itemTypeCode"
+   "iPhone 14", 
+   "1000",
+   "Electronic"
 ]
 }
 ```
 
 ## Cancellation option requests
 
+The following request provides ability to adjust cancellation cover limits:
+
 ```javascript
 cancellationOption : {
-optionType,
+"TRIPCANXPERCENT",
 cancellationCoverLimit: 0
 }
 ```
