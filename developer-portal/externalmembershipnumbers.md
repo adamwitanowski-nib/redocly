@@ -10,6 +10,8 @@ There is optional membership API validation based on integration with specific m
 
 # API format specification
 
+The following parameter can be used as part of a quote request to pass in external membership numbers:
+
 ```javascript
 externalIdentifiers : {
 "externalMembershipNumber" : 12345678
