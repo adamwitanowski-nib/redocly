@@ -20,16 +20,19 @@ The following are the available options available. Note that each product offere
 | ADVENTUREACTIVITY | Adventure activity (World Nomads only) |
 | SNOWSPORTS | Snow sports |
 | TRIPCANX | Trip cancellation value |
-| POLEXCESSPERCENT | Policy excess buy out option |
+| POLEXCESSPERCENT | Excess buy out option |
 | TRIPCANXPERCENT | Trip cancellation percentage |
 | CRUISE | Cruise option |
 
 ## Basic option requests
 
-Basic options are used to configure Snow sports, policy excess buy out percentage.
+Basic options are used to configure the following option types:
 
-  - What other options fall under basic option specification? How do we know what a basic
-  - verse other option type is?
+ - Snow sports coverage 
+ - Excess by out
+ - Rental vechicle excess
+
+The following show sample values for these options:
 
 ```javascript
 basicOptions : [
@@ -38,6 +41,9 @@ basicOptions : [
   },
   basicOptions : {
     “POLICYEXCESSPERCENT”, OptedInValue : 0
+  },
+  CAREXCESS : {
+    “CAREXCESS”, OptedInValue : 5000
   }
 ]
 ```
@@ -70,7 +76,7 @@ The following request provides ability to adjust cancellation cover limits:
 
 ```javascript
 cancellationOption : {
-"TRIPCANXPERCENT",
+"TRIPCANX",
 cancellationCoverLimit: 0
 }
 ```
