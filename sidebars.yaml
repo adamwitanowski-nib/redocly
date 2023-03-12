@@ -13,6 +13,8 @@ training:
         page: developer-portal/options.md           
       - label: External Membership numbers
         page: developer-portal/externalmembershipnumbers.md
+      - label: Credit card tokenisation
+        page: developer-portal/creditcards.md
   - separator: API Reference Docs
   - group: Products API reference
     expanded: false
