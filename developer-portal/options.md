@@ -10,7 +10,7 @@ Options are optional extras that can be added to the product after a plan is sel
 
 The following are the available options available. Note that each product offered will not support all options provided below.
 
-| Code        | Description |
+| Option Code | Description |
 | ----------- | ----------- | 
 | POLEXCESS   | Policy excess |
 | CAREXCESS   | Rental car excess |
@@ -22,9 +22,12 @@ The following are the available options available. Note that each product offere
 | TRIPCANXPERCENT | Trip cancellation percentage |
 | CRUISE | Cruise option |
 
-## Sample option requests
+## Basic option requests
 
-The following shows the structure of the option request:
+Basic options are used to configure Snow sports, policy excess buy out percentage.
+
+  - What other options fall under basic option specification? How do we know what a basic
+  - verse other option type is?
 
 ```javascript
 basicOptions : [
@@ -36,6 +39,12 @@ basicOptions : [
   }
 ]
 
+## Specified item option requests
+
+name - Name of specified item (E.g. 'iphone 14')
+itemValue - Requested value to cover the specified item option. Needs to be below the individual item limit on the policy.
+itemTypeCode - TBC, how do get the value of the individual itemTypeCodes? Where this is configured in the API definition?
+
 specifiedItemOption : {
 optionType
 specfifiedItems : [
@@ -45,9 +54,13 @@ specfifiedItems : [
 ]
 }
 
+## Cancellation option requests
+
 cancellationOption : {
 optionType,
 cancellationCoverLimit: 0
 }
 ````
+
+## Cruise ship option requests
 
