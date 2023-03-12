@@ -38,6 +38,7 @@ basicOptions : [
     “POLICYEXCESSPERCENT”, OptedInValue : 0
   }
 ]
+```
 
 ## Specified item option requests
 
@@ -45,6 +46,7 @@ name - Name of specified item (E.g. 'iphone 14')
 itemValue - Requested value to cover the specified item option. Needs to be below the individual item limit on the policy.
 itemTypeCode - TBC, how do get the value of the individual itemTypeCodes? Where this is configured in the API definition?
 
+```javascript
 specifiedItemOption : {
 optionType
 specfifiedItems : [
@@ -53,14 +55,16 @@ specfifiedItems : [
    "itemTypeCode"
 ]
 }
+```
 
 ## Cancellation option requests
 
+```javascript
 cancellationOption : {
 optionType,
 cancellationCoverLimit: 0
 }
-````
+```
 
 ## Cruise ship option requests
 
