@@ -7,6 +7,8 @@ training:
     pages:
       - label: Quote and Purchase flows
         page: developer-portal/quotepurchaseflows.md   
+      - label: Options
+        page: developer-portal/options.md           
   - separator: API Reference Docs
   - group: Products API reference
     expanded: false
