@@ -39,10 +39,10 @@ basicOptions : [
   {
    “SNOWSPORTS”, isOptedIn : true
   },
-  basicOptions : {
+  {
     “POLICYEXCESSPERCENT”, OptedInValue : 0
   },
-  CAREXCESS : {
+  {
     “CAREXCESS”, OptedInValue : 5000
   }
 ]
