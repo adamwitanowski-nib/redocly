@@ -15,7 +15,10 @@ You can pass in the quote type into the endpoint for quoteCountries configuratio
 
 The homeCountries attribute describes which countries the product is available for sale.
 
-The destinationCountries describes the current available sale countries 
+### Available country list
+
+The destinationCountries describes the current available countries. This includes no product, unsafe and sanctioned country codes which are filtered out separately:
+
 ```javascript
     {
       "code": "ARG",
@@ -31,6 +34,8 @@ The destinationCountries describes the current available sale countries
       ]
     }
 ```
+
+### Country restrictions
 
 To retrieve the list of no products offered to this country, unsafe and sanctioned countries utilise the baseQuoteConfig endpoint. The following information is available for each home country:
 
