@@ -63,9 +63,11 @@ basicOptions : [
 specifiedItemOption : {
 "SPECITEMS",
 specfifiedItems : [
+ {
    name : "iPhone 14", 
    itemValue : "1000",
-   itemTypeCode : "Electronic"
+   itemTypeCode : "Electronic" 
+ }
 ]
 }
 ```
