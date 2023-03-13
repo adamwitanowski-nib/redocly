@@ -134,42 +134,6 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/CommunicationError'
-  /v1/{brandCode}/quotewithoptions:
-    post:
-      tags:
-        - Quote
-      summary: Create / Update Quote with options
-      parameters:
-        - name: brandCode
-          in: path
-          required: true
-          description: A supported NIB Travel brand code, such as “wn”.
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Quote'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/Quote'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/Quote'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Quote'
-        default:
-          description: error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommunicationError'
   /v1/{brandCode}/quote/{quoteId}:
     get:
       tags:
