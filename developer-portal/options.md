@@ -6,7 +6,7 @@ title: Options
 
 Options are optional extras that can be added to the product after a plan is selected.
 
-These can be added using the [Quotes API with Options](/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quotewithoptions/post/) method.
+These can be added using the [Quotes API](/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quote/post/) method.
 
 ## Available options
 

@@ -10,8 +10,8 @@ This section documents use-cases about embedding quote and purchase paths and pr
 The sequence flow for retreiving a quote is typically the following. The sequence is the following:
 
  - Retrieve a quote based on supplied parameters including trip dates, destination country, country of residence. (If applicable to the brand) A list of available products with detailed pricing information will be returned. [Quotes API](/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quote/post/)
- - Add options to the quote and retrieve the updated pricing information [Quotes API with Options](/openapi/quotes/tag/Quote/paths/~1v1~1%7BbrandCode%7D~1quotewithoptions/post/)
- - Credit card tokenisation flow to the card token API [Credit card tokenisation API](/openapi/cardtoken/operation/tokeniseCard/)
+ - Add options to the quote and retrieve the updated pricing information [Quotes API with Options](/developer-portal/options.md)
+ - Credit card tokenisation flow to the card token API [Credit card tokenisation API](/developer-portal/creditcards.md)
  - Purchase request utilising the tokenised credit card information.[Purchase API](/openapi/quotes/tag/Purchase/paths/~1v1~1%7BbrandCode%7D~1purchase/post/)
 
 ```mermaid
