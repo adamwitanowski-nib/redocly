@@ -6,7 +6,7 @@ title: Country list
 
 The country list configured for a selected brand is available in quoteCountriesConfig endpoint.
 
-# API format specification
+## API format specification
 
 You can pass in the quote type into the endpoint for quoteCountries configuration:
 

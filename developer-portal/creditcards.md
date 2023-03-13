@@ -8,7 +8,7 @@ nib travel insurance is PCI-DSS certified and supports been the merchant of reco
 
 nib has a tokenisation endpoint, to support scenarios such as fail over between multiple payment gateways used for redundancy and to support different tender types. This separation is to enforce strict security boundaries and avoid core APIs been involved in PCI scope.
 
-# Tokenisation request
+## Tokenisation request
 
 To tokenise the request you need to send the card information to the Card tokenisation endpoint. This provides a one-time use token endpoint for any purchase transactions.
 

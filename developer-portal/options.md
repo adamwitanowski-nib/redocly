@@ -81,7 +81,5 @@ cancellationOption : {
 "TRIPCANX",
 cancellationCoverLimit: 0
 }
-```
-
-## Cruise ship option requests
+``` 
 
