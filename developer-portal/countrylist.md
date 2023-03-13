@@ -17,7 +17,11 @@ The homeCountries attribute describes which countries the product is available f
 
 ### Available country list
 
-The destinationCountries describes the current available countries. This includes no product, unsafe and sanctioned country codes which are filtered out separately:
+The destinationCountries describes the current available countries and destinations. This includes no product, unsafe and sanctioned country codes which are filtered out separately.
+
+The country list returned includes 3 digit codes which are sent in the quote API request, name and country aliases.
+
+Country aliases can be used to define common alternative names to the country names.
 
 ```javascript
     {
@@ -31,6 +35,22 @@ The destinationCountries describes the current available countries. This include
         "Argentina",
         "Buenos Aires",
         "Patagonia"
+      ]
+    }
+```
+
+The following is an example of AMT region configuration, which are listed out separately:
+
+```javascript
+    {
+      "code": "WWD",
+      "name": "Worldwide",
+      "sentenceName": "Worldwide",
+      "isTravelActivity": false,
+      "effectiveToDate": "1970-01-01T00:00:00Z",
+      "effectiveFromDate": "1970-01-01T00:00:00Z",
+      "aliases": [
+        "Worldwide"
       ]
     }
 ```

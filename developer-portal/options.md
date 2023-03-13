@@ -22,7 +22,6 @@ The following are the available options available. Note that each product offere
 | TRIPCANX | Trip cancellation value |
 | POLEXCESSPERCENT | Excess buy out option |
 | TRIPCANXPERCENT | Trip cancellation percentage |
-| CRUISE | Cruise option |
 
 ## Basic option requests
 
