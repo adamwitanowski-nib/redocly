@@ -15,6 +15,9 @@ training:
         page: developer-portal/externalmembershipnumbers.md
       - label: Credit card tokenisation
         page: developer-portal/creditcards.md
+      - label: Backoffice integration for policies
+        page: developer-portal/backofficepolicies.md
+
   - separator: API Reference Docs
   - group: Products API reference
     expanded: false

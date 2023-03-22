@@ -1,9 +1,21 @@
 # Redocly API developer portal
 
 ## Prerequisites
+### 1. install node.js and check the version
+    
+[node.js >= 12.22.6 and <= 16.x](https://nodejs.org/en/)
+    node -v
 
-- [node.js >= 12.22.6 and <= 16.x](https://nodejs.org/en/)
-- [yarn](https://yarnpkg.com/en/)
+
+### 2. make sure that npm is installed 
+
+    npm -v
+
+
+### 3. install yarn 
+
+    npm install --location=global yarn
+
 
 ## Install
 
